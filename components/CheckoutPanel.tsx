@@ -51,9 +51,9 @@ export function CheckoutPanel({ onClose }: { onClose: () => void }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-ink/50 p-4 sm:items-center">
-      <div className="w-full max-w-2xl rounded-sm border border-line bg-canvas p-6">
-        <div className="mb-3 flex items-center justify-between">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/50 p-4">
+      <div className="flex max-h-[90vh] w-full max-w-2xl flex-col rounded-sm border border-line bg-canvas">
+        <div className="flex shrink-0 items-center justify-between border-b border-hairline p-6">
           <h2 className="font-serif text-[24px] text-primary">Checkout</h2>
           <button
             onClick={onClose}
@@ -63,16 +63,18 @@ export function CheckoutPanel({ onClose }: { onClose: () => void }) {
             ✕
           </button>
         </div>
-        {error ? (
-          <p className="text-[15px] text-red-700">{error}</p>
-        ) : (
-          <EmbeddedCheckoutProvider
-            stripe={stripePromise}
-            options={{ fetchClientSecret }}
-          >
-            <EmbeddedCheckout />
-          </EmbeddedCheckoutProvider>
-        )}
+        <div className="overflow-y-auto p-6">
+          {error ? (
+            <p className="text-[15px] text-red-700">{error}</p>
+          ) : (
+            <EmbeddedCheckoutProvider
+              stripe={stripePromise}
+              options={{ fetchClientSecret }}
+            >
+              <EmbeddedCheckout />
+            </EmbeddedCheckoutProvider>
+          )}
+        </div>
       </div>
     </div>
   );
