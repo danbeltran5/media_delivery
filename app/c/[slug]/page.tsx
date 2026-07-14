@@ -8,6 +8,7 @@ import { VideoCard } from "@/components/VideoCard";
 import { CartProvider } from "@/lib/cart-context";
 import { CartBar } from "@/components/CartBar";
 import { RestoreAccessForm } from "@/components/RestoreAccessForm";
+import { SiteFooter } from "@/components/SiteFooter";
 
 export default async function ClientWorkspacePage({
   params,
@@ -74,6 +75,7 @@ export default async function ClientWorkspacePage({
         )}
       </main>
       <CartBar />
+      <SiteFooter />
     </CartProvider>
   );
 }
