@@ -48,7 +48,7 @@ export default async function AdminPage() {
             height={43}
             className="mb-6"
           />
-          <p className="font-label text-[14px] uppercase tracking-[0.22em] text-accent">
+          <p className="font-label font-bold text-[14px] uppercase tracking-[0.26em] text-accent">
             Admin
           </p>
           <h1 className="mt-2 font-serif text-[32px] text-primary">
@@ -74,19 +74,19 @@ export default async function AdminPage() {
           <table className="w-full min-w-[720px] border-collapse">
             <thead>
               <tr className="border-b border-hairline">
-                <th className="px-4 py-3 text-left font-label text-[11px] uppercase tracking-[0.1em] text-muted">
+                <th className="px-4 py-3 text-left font-label font-bold text-[11px] uppercase tracking-[0.18em] text-muted">
                   Client
                 </th>
-                <th className="px-4 py-3 text-left font-label text-[11px] uppercase tracking-[0.1em] text-muted">
+                <th className="px-4 py-3 text-left font-label font-bold text-[11px] uppercase tracking-[0.18em] text-muted">
                   Videos
                 </th>
-                <th className="px-4 py-3 text-left font-label text-[11px] uppercase tracking-[0.1em] text-muted">
+                <th className="px-4 py-3 text-left font-label font-bold text-[11px] uppercase tracking-[0.18em] text-muted">
                   Purchases
                 </th>
-                <th className="px-4 py-3 text-left font-label text-[11px] uppercase tracking-[0.1em] text-muted">
+                <th className="px-4 py-3 text-left font-label font-bold text-[11px] uppercase tracking-[0.18em] text-muted">
                   Downloaded
                 </th>
-                <th className="px-4 py-3 text-left font-label text-[11px] uppercase tracking-[0.1em] text-muted">
+                <th className="px-4 py-3 text-left font-label font-bold text-[11px] uppercase tracking-[0.18em] text-muted">
                   Revenue
                 </th>
                 <th />

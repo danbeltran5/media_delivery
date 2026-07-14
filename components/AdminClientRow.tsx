@@ -61,7 +61,7 @@ export function AdminClientRow({
         <td colSpan={6} className="px-4 py-4">
           <div className="flex flex-wrap items-end gap-3">
             <div className="flex flex-col gap-1">
-              <label className="font-label text-[11px] uppercase tracking-[0.1em] text-muted">
+              <label className="font-label font-bold text-[11px] uppercase tracking-[0.18em] text-muted">
                 Name
               </label>
               <input
@@ -71,7 +71,7 @@ export function AdminClientRow({
               />
             </div>
             <div className="flex flex-col gap-1">
-              <label className="font-label text-[11px] uppercase tracking-[0.1em] text-muted">
+              <label className="font-label font-bold text-[11px] uppercase tracking-[0.18em] text-muted">
                 URL slug (/c/...)
               </label>
               <input
@@ -83,7 +83,7 @@ export function AdminClientRow({
             <button
               onClick={handleSave}
               disabled={saving}
-              className="rounded-xs bg-cta px-4 py-1.5 font-label text-[12px] uppercase tracking-[0.1em] text-cta-text hover:bg-cta-hover disabled:opacity-50"
+              className="rounded-xs bg-cta px-4 py-1.5 font-label font-bold text-[12px] uppercase tracking-[0.18em] text-cta-text hover:bg-cta-hover disabled:opacity-50"
             >
               {saving ? "Saving…" : "Save"}
             </button>
@@ -94,7 +94,7 @@ export function AdminClientRow({
                 setSlugValue(slug);
                 setError(null);
               }}
-              className="rounded-xs border border-line px-4 py-1.5 font-label text-[12px] uppercase tracking-[0.1em] text-secondary hover:bg-hover"
+              className="rounded-xs border border-line px-4 py-1.5 font-label font-bold text-[12px] uppercase tracking-[0.18em] text-secondary hover:bg-hover"
             >
               Cancel
             </button>
@@ -135,13 +135,13 @@ export function AdminClientRow({
         <div className="flex justify-end gap-3">
           <Link
             href={`/admin/${slug}`}
-            className="font-label text-[12px] uppercase tracking-[0.1em] text-accent underline underline-offset-2"
+            className="font-label font-bold text-[12px] uppercase tracking-[0.18em] text-accent underline underline-offset-2"
           >
             Details
           </Link>
           <button
             onClick={() => setEditing(true)}
-            className="font-label text-[12px] uppercase tracking-[0.1em] text-muted underline underline-offset-2 hover:text-accent"
+            className="font-label font-bold text-[12px] uppercase tracking-[0.18em] text-muted underline underline-offset-2 hover:text-accent"
           >
             Rename
           </button>

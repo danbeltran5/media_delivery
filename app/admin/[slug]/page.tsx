@@ -61,11 +61,11 @@ export default async function AdminClientDetailPage({
       <header className="mb-10">
         <Link
           href="/admin"
-          className="font-label text-[12px] uppercase tracking-[0.1em] text-muted underline underline-offset-2 hover:text-accent"
+          className="font-label font-bold text-[12px] uppercase tracking-[0.18em] text-muted underline underline-offset-2 hover:text-accent"
         >
           &larr; All clients
         </Link>
-        <p className="mt-4 font-label text-[14px] uppercase tracking-[0.22em] text-accent">
+        <p className="mt-4 font-label font-bold text-[14px] uppercase tracking-[0.26em] text-accent">
           Admin
         </p>
         <h1 className="mt-2 font-serif text-[32px] text-primary">
@@ -103,7 +103,7 @@ export default async function AdminClientDetailPage({
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2 border-b border-hairline p-4">
                     <span className="text-[15px] text-primary">{credit.email}</span>
-                    <span className="font-label text-[12px] uppercase tracking-[0.1em] text-muted">
+                    <span className="font-label font-bold text-[12px] uppercase tracking-[0.18em] text-muted">
                       {used} of {credit.totalCredits} used &middot; {remaining} remaining
                     </span>
                   </div>
@@ -156,7 +156,7 @@ export default async function AdminClientDetailPage({
                   {formatPrice(video.priceCents)}
                 </p>
               </div>
-              <span className="font-label text-[12px] uppercase tracking-[0.1em] text-muted">
+              <span className="font-label font-bold text-[12px] uppercase tracking-[0.18em] text-muted">
                 {video.purchases.length} purchase
                 {video.purchases.length === 1 ? "" : "s"}
               </span>

@@ -32,7 +32,7 @@ export function AdminGrantCreditsForm({ clientId }: { clientId: string }) {
   return (
     <form onSubmit={handleSubmit} className="flex flex-wrap items-end gap-3">
       <div className="flex flex-col gap-1">
-        <label className="font-label text-[11px] uppercase tracking-[0.1em] text-muted">
+        <label className="font-label font-bold text-[11px] uppercase tracking-[0.18em] text-muted">
           Email
         </label>
         <input
@@ -45,7 +45,7 @@ export function AdminGrantCreditsForm({ clientId }: { clientId: string }) {
         />
       </div>
       <div className="flex flex-col gap-1">
-        <label className="font-label text-[11px] uppercase tracking-[0.1em] text-muted">
+        <label className="font-label font-bold text-[11px] uppercase tracking-[0.18em] text-muted">
           Credits to add
         </label>
         <input
@@ -60,7 +60,7 @@ export function AdminGrantCreditsForm({ clientId }: { clientId: string }) {
       <button
         type="submit"
         disabled={status.type === "loading"}
-        className="rounded-xs bg-cta px-5 py-2 font-label text-[12px] uppercase tracking-[0.1em] text-cta-text hover:bg-cta-hover disabled:opacity-50"
+        className="rounded-xs bg-cta px-5 py-2 font-label font-bold text-[12px] uppercase tracking-[0.18em] text-cta-text hover:bg-cta-hover disabled:opacity-50"
       >
         {status.type === "loading" ? "Saving…" : "Grant credits"}
       </button>

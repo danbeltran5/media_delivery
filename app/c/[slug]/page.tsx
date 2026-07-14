@@ -43,7 +43,7 @@ export default async function ClientWorkspacePage({
             height={48}
             className="mb-8"
           />
-          <p className="font-label text-[14px] uppercase tracking-[0.22em] text-accent">
+          <p className="font-label font-bold text-[14px] uppercase tracking-[0.26em] text-accent">
             Your videos
           </p>
           <h1 className="mt-2 font-serif text-[36px] leading-[1.1] tracking-[-0.01em] text-primary">

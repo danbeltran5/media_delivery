@@ -36,7 +36,7 @@ export function SiteFooter() {
         <p className="text-[13px] text-muted">
           10449 La Ballena Cir, Fountain Valley, CA 92708
         </p>
-        <p className="mt-2 font-label text-[11px] uppercase tracking-[0.1em] text-faint">
+        <p className="mt-2 font-label font-bold text-[11px] uppercase tracking-[0.18em] text-faint">
           {`© ${year} Dan & Tyler Photography`}
         </p>
       </div>

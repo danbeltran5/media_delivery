@@ -31,7 +31,7 @@ export function CartBar() {
           </span>
           <button
             onClick={() => setCheckoutOpen(true)}
-            className="rounded-xs bg-cta px-6 py-3 font-label text-[13px] uppercase tracking-[0.12em] text-cta-text transition-colors duration-[180ms] hover:bg-cta-hover"
+            className="rounded-xs bg-cta px-6 py-3 font-label font-bold text-[13px] uppercase tracking-[0.18em] text-cta-text transition-colors duration-[180ms] hover:bg-cta-hover"
           >
             Checkout
           </button>

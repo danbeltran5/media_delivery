@@ -36,7 +36,7 @@ export function RestoreAccessForm({ slug }: { slug: string }) {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="font-label text-[13px] uppercase tracking-[0.06em] text-muted underline underline-offset-4 transition-colors duration-[180ms] hover:text-accent"
+        className="font-label font-bold text-[13px] uppercase tracking-[0.18em] text-muted underline underline-offset-4 transition-colors duration-[180ms] hover:text-accent"
       >
         Already purchased? Restore your downloads
       </button>
@@ -56,7 +56,7 @@ export function RestoreAccessForm({ slug }: { slug: string }) {
       <button
         type="submit"
         disabled={status.type === "loading"}
-        className="rounded-xs bg-cta px-5 py-2.5 font-label text-[13px] uppercase tracking-[0.12em] text-cta-text transition-colors duration-[180ms] hover:bg-cta-hover disabled:opacity-50"
+        className="rounded-xs bg-cta px-5 py-2.5 font-label font-bold text-[13px] uppercase tracking-[0.18em] text-cta-text transition-colors duration-[180ms] hover:bg-cta-hover disabled:opacity-50"
       >
         {status.type === "loading" ? "Checking…" : "Restore"}
       </button>

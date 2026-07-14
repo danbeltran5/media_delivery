@@ -46,7 +46,7 @@ export function AdminLoginForm() {
         <button
           type="submit"
           disabled={loading}
-          className="rounded-xs bg-cta px-5 py-2.5 font-label text-[13px] uppercase tracking-[0.12em] text-cta-text transition-colors duration-[180ms] hover:bg-cta-hover disabled:opacity-50"
+          className="rounded-xs bg-cta px-5 py-2.5 font-label font-bold text-[13px] uppercase tracking-[0.18em] text-cta-text transition-colors duration-[180ms] hover:bg-cta-hover disabled:opacity-50"
         >
           {loading ? "Checking…" : "Log in"}
         </button>

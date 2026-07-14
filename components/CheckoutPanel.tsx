@@ -41,7 +41,7 @@ export function CheckoutPanel({ onClose }: { onClose: () => void }) {
           </p>
           <button
             onClick={onClose}
-            className="mt-5 rounded-xs bg-cta px-5 py-2.5 font-label text-[13px] uppercase tracking-[0.12em] text-cta-text hover:bg-cta-hover"
+            className="mt-5 rounded-xs bg-cta px-5 py-2.5 font-label font-bold text-[13px] uppercase tracking-[0.18em] text-cta-text hover:bg-cta-hover"
           >
             Close
           </button>

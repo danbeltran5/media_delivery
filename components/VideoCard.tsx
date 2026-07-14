@@ -54,7 +54,7 @@ export function VideoCard({
           </p>
         )}
         <div className="mt-3 flex items-center justify-between">
-          <span className="font-label text-[13px] uppercase tracking-[0.06em] text-muted">
+          <span className="font-label font-bold text-[13px] uppercase tracking-[0.18em] text-muted">
             {credits.active && !purchased
               ? "Free with credit"
               : `${formatPrice(priceCents, currency)} to download`}
@@ -62,7 +62,7 @@ export function VideoCard({
           {purchased ? (
             <a
               href={`/api/download/${id}`}
-              className="rounded-xs bg-olive px-5 py-2.5 font-label text-[13px] uppercase tracking-[0.12em] text-on-dark transition-colors duration-[180ms] hover:bg-olive/90"
+              className="rounded-xs bg-olive px-5 py-2.5 font-label font-bold text-[13px] uppercase tracking-[0.18em] text-on-dark transition-colors duration-[180ms] hover:bg-olive/90"
             >
               Download
             </a>
@@ -72,8 +72,8 @@ export function VideoCard({
               disabled={atCap}
               className={
                 selected
-                  ? "rounded-xs border border-primary px-5 py-2.5 font-label text-[13px] uppercase tracking-[0.12em] text-primary transition-colors duration-[180ms] hover:bg-hover"
-                  : "rounded-xs bg-olive px-5 py-2.5 font-label text-[13px] uppercase tracking-[0.12em] text-on-dark transition-colors duration-[180ms] hover:bg-olive/90 disabled:opacity-40"
+                  ? "rounded-xs border border-primary px-5 py-2.5 font-label font-bold text-[13px] uppercase tracking-[0.18em] text-primary transition-colors duration-[180ms] hover:bg-hover"
+                  : "rounded-xs bg-olive px-5 py-2.5 font-label font-bold text-[13px] uppercase tracking-[0.18em] text-on-dark transition-colors duration-[180ms] hover:bg-olive/90 disabled:opacity-40"
               }
             >
               {selected ? "Selected ✓" : "Select (free)"}
@@ -83,8 +83,8 @@ export function VideoCard({
               onClick={() => toggle({ id, title, priceCents, currency })}
               className={
                 inCart
-                  ? "rounded-xs border border-primary px-5 py-2.5 font-label text-[13px] uppercase tracking-[0.12em] text-primary transition-colors duration-[180ms] hover:bg-hover"
-                  : "rounded-xs bg-cta px-5 py-2.5 font-label text-[13px] uppercase tracking-[0.12em] text-cta-text transition-colors duration-[180ms] hover:bg-cta-hover"
+                  ? "rounded-xs border border-primary px-5 py-2.5 font-label font-bold text-[13px] uppercase tracking-[0.18em] text-primary transition-colors duration-[180ms] hover:bg-hover"
+                  : "rounded-xs bg-cta px-5 py-2.5 font-label font-bold text-[13px] uppercase tracking-[0.18em] text-cta-text transition-colors duration-[180ms] hover:bg-cta-hover"
               }
             >
               {inCart ? "Added ✓" : "Add to cart"}

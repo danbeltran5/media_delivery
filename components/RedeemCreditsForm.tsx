@@ -10,14 +10,16 @@ export function RedeemCreditsForm() {
 
   if (active) {
     return (
-      <div className="flex flex-wrap items-center gap-3 rounded-xs border border-accent bg-block px-4 py-3">
-        <span className="text-[14px] text-primary">
-          You have <strong>{remaining}</strong> free download{remaining === 1 ? "" : "s"}{" "}
-          remaining — select your videos below.
+      <div className="flex flex-wrap items-center gap-3">
+        <span className="font-label font-bold text-[13px] uppercase tracking-[0.18em] text-accent">
+          {remaining} free download{remaining === 1 ? "" : "s"} remaining
+        </span>
+        <span className="text-[14px] text-secondary">
+          — select your videos below.
         </span>
         <button
           onClick={exit}
-          className="font-label text-[12px] uppercase tracking-[0.1em] text-muted underline underline-offset-2 hover:text-accent"
+          className="font-label font-bold text-[12px] uppercase tracking-[0.18em] text-muted underline underline-offset-2 hover:text-accent"
         >
           Cancel
         </button>
@@ -29,7 +31,7 @@ export function RedeemCreditsForm() {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="font-label text-[13px] uppercase tracking-[0.06em] text-muted underline underline-offset-4 transition-colors duration-[180ms] hover:text-accent"
+        className="font-label font-bold text-[13px] uppercase tracking-[0.18em] text-muted underline underline-offset-4 transition-colors duration-[180ms] hover:text-accent"
       >
         Have free downloads? Enter your email
       </button>
@@ -55,7 +57,7 @@ export function RedeemCreditsForm() {
       <button
         type="submit"
         disabled={verifying}
-        className="rounded-xs bg-cta px-5 py-2.5 font-label text-[13px] uppercase tracking-[0.12em] text-cta-text transition-colors duration-[180ms] hover:bg-cta-hover disabled:opacity-50"
+        className="rounded-xs bg-cta px-5 py-2.5 font-label font-bold text-[13px] uppercase tracking-[0.18em] text-cta-text transition-colors duration-[180ms] hover:bg-cta-hover disabled:opacity-50"
       >
         {verifying ? "Checking…" : "Unlock"}
       </button>

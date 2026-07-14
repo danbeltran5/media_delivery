@@ -42,7 +42,7 @@ export function CreditBar({ clientSlug }: { clientSlug: string }) {
         <button
           onClick={handleRedeem}
           disabled={loading}
-          className="rounded-xs bg-olive px-6 py-3 font-label text-[13px] uppercase tracking-[0.12em] text-on-dark transition-colors duration-[180ms] hover:bg-olive/90 disabled:opacity-50"
+          className="rounded-xs bg-olive px-6 py-3 font-label font-bold text-[13px] uppercase tracking-[0.18em] text-on-dark transition-colors duration-[180ms] hover:bg-olive/90 disabled:opacity-50"
         >
           {loading ? "Redeeming…" : "Redeem Free Downloads"}
         </button>

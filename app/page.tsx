@@ -10,7 +10,7 @@ export default function Home() {
         height={59}
         className="mb-2"
       />
-      <h1 className="font-label text-[13px] uppercase tracking-[0.22em] text-muted">
+      <h1 className="font-label font-bold text-[13px] uppercase tracking-[0.26em] text-muted">
         Client Video Portal
       </h1>
       <p className="text-secondary">
