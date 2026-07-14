@@ -35,12 +35,12 @@ export default async function ClientWorkspacePage({
     <CartProvider clientSlug={slug} purchasedIds={purchasedIds}>
       <CreditProvider clientSlug={slug}>
         <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-14 sm:px-10">
-        <header className="mb-12">
+        <header className="mb-12 flex flex-col items-center text-center">
           <Image
             src="/brand/logo.png"
             alt="Dan & Tyler Photography"
-            width={180}
-            height={48}
+            width={140}
+            height={37}
             className="mb-8"
           />
           <p className="font-label font-bold text-[14px] uppercase tracking-[0.26em] text-accent">
