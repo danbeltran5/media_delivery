@@ -7,7 +7,10 @@ import { purchaseCookieName } from "@/lib/purchase-cookie";
 import { VideoCard } from "@/components/VideoCard";
 import { CartProvider } from "@/lib/cart-context";
 import { CartBar } from "@/components/CartBar";
+import { CreditProvider } from "@/lib/credit-context";
+import { CreditBar } from "@/components/CreditBar";
 import { RestoreAccessForm } from "@/components/RestoreAccessForm";
+import { RedeemCreditsForm } from "@/components/RedeemCreditsForm";
 import { SiteFooter } from "@/components/SiteFooter";
 
 export default async function ClientWorkspacePage({
@@ -30,7 +33,8 @@ export default async function ClientWorkspacePage({
 
   return (
     <CartProvider clientSlug={slug} purchasedIds={purchasedIds}>
-      <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-14 sm:px-10">
+      <CreditProvider clientSlug={slug}>
+        <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-14 sm:px-10">
         <header className="mb-12">
           <Image
             src="/brand/logo.png"
@@ -49,8 +53,9 @@ export default async function ClientWorkspacePage({
             Watch online anytime. Add videos to your cart to purchase
             full-quality downloads.
           </p>
-          <div className="mt-5">
+          <div className="mt-5 flex flex-col gap-3">
             <RestoreAccessForm slug={slug} />
+            <RedeemCreditsForm />
           </div>
           <div className="mt-8 h-px w-full bg-hairline" />
         </header>
@@ -75,7 +80,9 @@ export default async function ClientWorkspacePage({
         )}
       </main>
       <CartBar />
+      <CreditBar clientSlug={slug} />
       <SiteFooter />
+    </CreditProvider>
     </CartProvider>
   );
 }

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useCart } from "@/lib/cart-context";
+import { useCredits } from "@/lib/credit-context";
 import { CheckoutPanel } from "@/components/CheckoutPanel";
 
 function formatPrice(cents: number, currency: string) {
@@ -13,9 +14,10 @@ function formatPrice(cents: number, currency: string) {
 
 export function CartBar() {
   const { items, totalCents, currency } = useCart();
+  const { active } = useCredits();
   const [checkoutOpen, setCheckoutOpen] = useState(false);
 
-  if (items.length === 0) return null;
+  if (items.length === 0 || active) return null;
 
   return (
     <>

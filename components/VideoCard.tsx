@@ -1,6 +1,7 @@
 "use client";
 
 import { useCart } from "@/lib/cart-context";
+import { useCredits } from "@/lib/credit-context";
 
 function formatPrice(cents: number, currency: string) {
   return new Intl.NumberFormat("en-US", {
@@ -27,7 +28,10 @@ export function VideoCard({
   purchased: boolean;
 }) {
   const { isInCart, toggle } = useCart();
+  const credits = useCredits();
   const inCart = isInCart(id);
+  const selected = credits.selectedIds.includes(id);
+  const atCap = !selected && credits.selectedIds.length >= credits.remaining;
 
   return (
     <div className="overflow-hidden rounded-sm border border-line bg-card transition-colors duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:border-strong">
@@ -51,7 +55,9 @@ export function VideoCard({
         )}
         <div className="mt-3 flex items-center justify-between">
           <span className="font-label text-[13px] uppercase tracking-[0.06em] text-muted">
-            {formatPrice(priceCents, currency)} to download
+            {credits.active && !purchased
+              ? "Free with credit"
+              : `${formatPrice(priceCents, currency)} to download`}
           </span>
           {purchased ? (
             <a
@@ -60,6 +66,18 @@ export function VideoCard({
             >
               Download
             </a>
+          ) : credits.active ? (
+            <button
+              onClick={() => credits.toggle(id)}
+              disabled={atCap}
+              className={
+                selected
+                  ? "rounded-xs border border-primary px-5 py-2.5 font-label text-[13px] uppercase tracking-[0.12em] text-primary transition-colors duration-[180ms] hover:bg-hover"
+                  : "rounded-xs bg-olive px-5 py-2.5 font-label text-[13px] uppercase tracking-[0.12em] text-on-dark transition-colors duration-[180ms] hover:bg-olive/90 disabled:opacity-40"
+              }
+            >
+              {selected ? "Selected ✓" : "Select (free)"}
+            </button>
           ) : (
             <button
               onClick={() => toggle({ id, title, priceCents, currency })}

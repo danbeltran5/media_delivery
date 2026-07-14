@@ -16,6 +16,19 @@ model Client {
   name      String
   createdAt DateTime @default(now())
   videos    Video[]
+  credits   Credit[]
+}
+
+model Credit {
+  id           String     @id @default(cuid())
+  clientId     String
+  client       Client     @relation(fields: [clientId], references: [id])
+  email        String
+  totalCredits Int
+  createdAt    DateTime   @default(now())
+  purchases    Purchase[]
+
+  @@unique([clientId, email])
 }
 
 model Video {
@@ -33,16 +46,19 @@ model Video {
 }
 
 model Purchase {
-  id              String   @id @default(cuid())
+  id              String    @id @default(cuid())
   videoId         String
-  video           Video    @relation(fields: [videoId], references: [id])
-  stripeSessionId String
-  status          String   @default("pending") // pending | paid
+  video           Video     @relation(fields: [videoId], references: [id])
+  stripeSessionId String?
+  creditId        String?
+  credit          Credit?   @relation(fields: [creditId], references: [id])
+  status          String    @default("pending") // pending | paid
   amountCents     Int
   email           String?
-  createdAt       DateTime @default(now())
+  createdAt       DateTime  @default(now())
   downloadedAt    DateTime?
 
   @@unique([videoId, stripeSessionId])
   @@index([stripeSessionId])
+  @@index([creditId])
 }

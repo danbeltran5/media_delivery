@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { isAdminAuthed } from "@/lib/admin-auth";
 import { streamThumbnailUrl } from "@/lib/cloudflare-stream";
 import { AdminLoginForm } from "@/components/AdminLoginForm";
+import { AdminGrantCreditsForm } from "@/components/AdminGrantCreditsForm";
 
 function formatPrice(cents: number) {
   return new Intl.NumberFormat("en-US", {
@@ -40,6 +41,16 @@ export default async function AdminClientDetailPage({
           },
         },
       },
+      credits: {
+        orderBy: { createdAt: "desc" },
+        include: {
+          purchases: {
+            where: { status: "paid" },
+            include: { video: true },
+            orderBy: { createdAt: "desc" },
+          },
+        },
+      },
     },
   });
 
@@ -68,6 +79,62 @@ export default async function AdminClientDetailPage({
           /c/{client.slug}
         </Link>
       </header>
+
+      <section className="mb-12">
+        <h2 className="mb-4 font-serif text-[22px] text-primary">
+          Free download credits
+        </h2>
+        <div className="mb-6 rounded-sm border border-line bg-card p-4">
+          <AdminGrantCreditsForm clientId={client.id} />
+        </div>
+        {client.credits.length === 0 ? (
+          <p className="text-[14px] text-secondary">
+            No credits granted yet.
+          </p>
+        ) : (
+          <div className="flex flex-col gap-4">
+            {client.credits.map((credit) => {
+              const used = credit.purchases.length;
+              const remaining = credit.totalCredits - used;
+              return (
+                <div
+                  key={credit.id}
+                  className="overflow-hidden rounded-sm border border-line bg-card"
+                >
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-hairline p-4">
+                    <span className="text-[15px] text-primary">{credit.email}</span>
+                    <span className="font-label text-[12px] uppercase tracking-[0.1em] text-muted">
+                      {used} of {credit.totalCredits} used &middot; {remaining} remaining
+                    </span>
+                  </div>
+                  {used > 0 && (
+                    <div className="divide-y divide-hairline">
+                      {credit.purchases.map((purchase) => (
+                        <div
+                          key={purchase.id}
+                          className="flex flex-wrap items-center justify-between gap-2 px-4 py-3 text-[14px]"
+                        >
+                          <span className="text-secondary">{purchase.video.title}</span>
+                          <span className="text-muted">
+                            Redeemed {formatDate(purchase.createdAt)}
+                          </span>
+                          <span
+                            className={purchase.downloadedAt ? "text-accent" : "text-muted"}
+                          >
+                            {purchase.downloadedAt
+                              ? `Downloaded ${formatDate(purchase.downloadedAt)}`
+                              : "Not downloaded yet"}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </section>
 
       <div className="flex flex-col gap-6">
         {client.videos.map((video) => (
@@ -103,6 +170,9 @@ export default async function AdminClientDetailPage({
                   >
                     <span className="text-secondary">
                       {purchase.email ?? "(no email)"}
+                      {purchase.creditId && (
+                        <span className="ml-2 text-accent">(free — credit)</span>
+                      )}
                     </span>
                     <span className="text-muted">
                       Purchased {formatDate(purchase.createdAt)}
