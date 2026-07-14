@@ -26,5 +26,12 @@ export async function GET(
     return NextResponse.json({ error: "Video not found" }, { status: 404 });
   }
 
+  if (!purchase.downloadedAt) {
+    await prisma.purchase.update({
+      where: { id: purchase.id },
+      data: { downloadedAt: new Date() },
+    });
+  }
+
   return NextResponse.redirect(toDirectDownloadLink(video.downloadUrl));
 }

@@ -41,6 +41,7 @@ model Purchase {
   amountCents     Int
   email           String?
   createdAt       DateTime @default(now())
+  downloadedAt    DateTime?
 
   @@unique([videoId, stripeSessionId])
   @@index([stripeSessionId])
