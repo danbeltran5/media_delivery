@@ -36,7 +36,7 @@ export function RestoreAccessForm({ slug }: { slug: string }) {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="font-label font-bold text-[13px] uppercase tracking-[0.18em] text-muted underline underline-offset-4 transition-colors duration-[180ms] hover:text-accent"
+        className="w-full text-center font-label font-bold text-[13px] uppercase tracking-[0.18em] text-muted underline underline-offset-4 transition-colors duration-[180ms] hover:text-accent"
       >
         Already purchased? Restore your downloads
       </button>
@@ -44,7 +44,10 @@ export function RestoreAccessForm({ slug }: { slug: string }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-wrap items-center gap-3">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-wrap items-center justify-center gap-3"
+    >
       <input
         type="email"
         required

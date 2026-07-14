@@ -10,7 +10,7 @@ export function RedeemCreditsForm() {
 
   if (active) {
     return (
-      <div className="flex flex-wrap items-center gap-3">
+      <div className="flex flex-wrap items-center justify-center gap-3">
         <span className="font-label font-bold text-[13px] uppercase tracking-[0.18em] text-accent">
           {remaining} free download{remaining === 1 ? "" : "s"} remaining
         </span>
@@ -31,7 +31,7 @@ export function RedeemCreditsForm() {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="font-label font-bold text-[13px] uppercase tracking-[0.18em] text-muted underline underline-offset-4 transition-colors duration-[180ms] hover:text-accent"
+        className="w-full text-center font-label font-bold text-[13px] uppercase tracking-[0.18em] text-muted underline underline-offset-4 transition-colors duration-[180ms] hover:text-accent"
       >
         Have free downloads? Enter your email
       </button>
@@ -44,7 +44,7 @@ export function RedeemCreditsForm() {
         e.preventDefault();
         verifyEmail(email);
       }}
-      className="flex flex-wrap items-center gap-3"
+      className="flex flex-wrap items-center justify-center gap-3"
     >
       <input
         type="email"
