@@ -25,6 +25,13 @@ export function SiteFooter() {
           >
             (714) 721-5367
           </a>
+          <a
+            href="https://instagram.com/danandtyler_photography"
+            target="_blank"
+            className="transition-colors duration-[180ms] hover:text-accent"
+          >
+            @danandtyler_photography
+          </a>
         </div>
         <p className="text-[13px] text-muted">
           10449 La Ballena Cir, Fountain Valley, CA 92708
