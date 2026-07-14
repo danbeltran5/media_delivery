@@ -63,7 +63,7 @@ export default async function ClientWorkspacePage({
         {client.videos.length === 0 ? (
           <p className="text-secondary">No videos have been added yet.</p>
         ) : (
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
             {client.videos.map((video) => (
               <VideoCard
                 key={video.id}
