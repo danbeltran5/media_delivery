@@ -39,7 +39,7 @@ export default async function ClientWorkspacePage({
           <h1 className="font-serif text-[60px] leading-[1.05] tracking-[-0.01em] text-primary">
             {client.name}
           </h1>
-          <p className="mt-3 max-w-[68ch] text-[16px] leading-[1.75] text-secondary">
+          <p className="mt-3 max-w-[68ch] text-[14px] leading-[1.75] text-secondary">
             {client.tagline || DEFAULT_TAGLINE}
           </p>
           <div className="mt-8 h-px w-full bg-hairline" />

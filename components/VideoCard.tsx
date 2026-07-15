@@ -81,7 +81,7 @@ export function VideoCard({
       <div
         role="button"
         aria-label={`Play ${title}`}
-        className="relative aspect-[2/3] w-full cursor-pointer overflow-hidden border border-line bg-dark transition-colors duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:border-strong"
+        className="relative aspect-[2/3] w-full cursor-pointer overflow-hidden bg-dark"
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
         onClick={() => setExpanded(true)}

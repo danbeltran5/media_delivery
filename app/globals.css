@@ -33,8 +33,8 @@
   --input-line: #d9d0c4;
 
   /* — Semantic aliases — */
-  --surface-page: var(--parchment);
-  --surface-canvas: var(--ivory);
+  --surface-page: var(--ivory);
+  --surface-canvas: var(--parchment);
   --surface-card: var(--ivory);
   --surface-block: var(--linen);
   --surface-dark: var(--soft-black);
