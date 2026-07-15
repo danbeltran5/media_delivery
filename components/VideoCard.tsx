@@ -41,7 +41,7 @@ export function VideoCard({
       >
         <iframe
           src={src}
-          className="absolute inset-0 h-full w-full"
+          className="absolute left-0 top-1/2 h-[118.52%] w-full -translate-y-1/2"
           allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
           allowFullScreen
           title={title}
