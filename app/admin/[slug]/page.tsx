@@ -6,13 +6,7 @@ import { streamThumbnailUrl } from "@/lib/cloudflare-stream";
 import { AdminLoginForm } from "@/components/AdminLoginForm";
 import { AdminGrantCreditsForm } from "@/components/AdminGrantCreditsForm";
 import { AdminTaglineForm } from "@/components/AdminTaglineForm";
-
-function formatPrice(cents: number) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  }).format(cents / 100);
-}
+import { AdminVideoPriceForm } from "@/components/AdminVideoPriceForm";
 
 function formatDate(date: Date) {
   return new Intl.DateTimeFormat("en-US", {
@@ -160,9 +154,7 @@ export default async function AdminClientDetailPage({
                 <h2 className="font-serif text-[18px] text-primary">
                   {video.title}
                 </h2>
-                <p className="text-[13px] text-muted">
-                  {formatPrice(video.priceCents)}
-                </p>
+                <AdminVideoPriceForm videoId={video.id} priceCents={video.priceCents} />
               </div>
               <span className="font-label font-bold text-[12px] uppercase tracking-[0.18em] text-muted">
                 {video.purchases.length} purchase
