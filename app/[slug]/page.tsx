@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
@@ -9,7 +8,7 @@ import { CartProvider } from "@/lib/cart-context";
 import { CartBar } from "@/components/CartBar";
 import { CreditProvider } from "@/lib/credit-context";
 import { CreditBar } from "@/components/CreditBar";
-import { AccessForm } from "@/components/AccessForm";
+import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { DEFAULT_TAGLINE } from "@/lib/tagline";
 
@@ -34,24 +33,15 @@ export default async function ClientWorkspacePage({
   return (
     <CartProvider clientSlug={slug} purchasedIds={purchasedIds}>
       <CreditProvider clientSlug={slug}>
+        <SiteHeader slug={slug} />
         <main className="mx-auto w-full max-w-7xl flex-1 px-8 py-16 sm:px-14">
         <header className="mb-16 flex flex-col items-center text-center">
-          <Image
-            src="/brand/logo.png"
-            alt="Dan & Tyler Photography"
-            width={140}
-            height={37}
-            className="mb-12"
-          />
           <h1 className="font-serif text-[60px] leading-[1.05] tracking-[-0.01em] text-primary">
             {client.name}
           </h1>
           <p className="mt-3 max-w-[68ch] text-[16px] leading-[1.75] text-secondary">
             {client.tagline || DEFAULT_TAGLINE}
           </p>
-          <div className="mt-5">
-            <AccessForm slug={slug} />
-          </div>
           <div className="mt-8 h-px w-full bg-hairline" />
         </header>
 
