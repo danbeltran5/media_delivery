@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { Cormorant_Garamond, Work_Sans, News_Cycle, Ramaraja } from "next/font/google";
 import "./globals.css";
 
@@ -46,10 +45,6 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-page text-primary font-body">
         {children}
-        <Script
-          src="https://embed.cloudflarestream.com/embed/sdk.latest.js"
-          strategy="afterInteractive"
-        />
       </body>
     </html>
   );
