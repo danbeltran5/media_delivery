@@ -43,6 +43,12 @@ export default function RootLayout({
       lang="en"
       className={`${cormorantGaramond.variable} ${workSans.variable} ${newsCycle.variable} ${ramaraja.variable} h-full antialiased`}
     >
+      <head>
+        <link
+          rel="preconnect"
+          href={`https://${process.env.CLOUDFLARE_STREAM_CUSTOMER_CODE}.cloudflarestream.com`}
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-page text-primary font-body">
         {children}
       </body>

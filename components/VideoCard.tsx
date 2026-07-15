@@ -32,14 +32,20 @@ export function VideoCard({
   const [hovering, setHovering] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   const revealTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const unmountTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const hasRevealedOnce = useRef(false);
 
   function handleEnter() {
     if (unmountTimer.current) clearTimeout(unmountTimer.current);
     setMounted(true);
     setHovering(true);
-    revealTimer.current = setTimeout(() => setShowVideo(true), 250);
+    const delay = hasRevealedOnce.current ? 250 : 600;
+    revealTimer.current = setTimeout(() => {
+      setShowVideo(true);
+      hasRevealedOnce.current = true;
+    }, delay);
   }
 
   function handleLeave() {
@@ -56,6 +62,15 @@ export function VideoCard({
     };
   }, []);
 
+  useEffect(() => {
+    if (!expanded) return;
+    function handleKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setExpanded(false);
+    }
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [expanded]);
+
   const buttonBase =
     "px-4 py-2 text-center font-label font-bold text-[12px] uppercase tracking-[0.16em] transition-colors duration-[180ms]";
   const ghostOlive = `${buttonBase} border border-olive text-olive hover:bg-olive hover:text-on-dark`;
@@ -64,11 +79,14 @@ export function VideoCard({
   return (
     <div>
       <div
-        className="relative aspect-[2/3] w-full overflow-hidden border border-line bg-dark transition-colors duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:border-strong"
+        role="button"
+        aria-label={`Play ${title}`}
+        className="relative aspect-[2/3] w-full cursor-pointer overflow-hidden border border-line bg-dark transition-colors duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:border-strong"
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
+        onClick={() => setExpanded(true)}
       >
-        {mounted && (
+        {mounted && !expanded && (
           <iframe
             src={`${playbackUrl}?controls=false&muted=true&loop=true&autoplay=true&preload=metadata`}
             className="absolute left-0 top-1/2 h-[118.52%] w-full -translate-y-1/2"
@@ -90,7 +108,13 @@ export function VideoCard({
             hovering ? "opacity-0" : "opacity-100"
           }`}
         >
-          <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/80">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/brand/watermark.png"
+            alt=""
+            className="absolute h-1/3 w-auto opacity-55"
+          />
+          <span className="relative flex h-8 w-8 items-center justify-center rounded-full border border-white/80">
             <svg
               viewBox="0 0 16 16"
               className="ml-0.5 h-3 w-3 fill-white"
@@ -133,6 +157,33 @@ export function VideoCard({
           </button>
         )}
       </div>
+
+      {expanded && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-6 sm:p-12"
+          onClick={() => setExpanded(false)}
+        >
+          <div
+            className="relative h-[85vh] aspect-[9/16] max-w-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setExpanded(false)}
+              aria-label="Close"
+              className="absolute -top-10 right-0 text-[13px] uppercase tracking-[0.16em] text-white/80 transition-colors duration-[180ms] hover:text-white"
+            >
+              Close ✕
+            </button>
+            <iframe
+              src={`${playbackUrl}?autoplay=true`}
+              className="h-full w-full"
+              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+              allowFullScreen
+              title={title}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

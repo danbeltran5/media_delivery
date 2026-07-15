@@ -34,8 +34,8 @@ export default async function ClientWorkspacePage({
   return (
     <CartProvider clientSlug={slug} purchasedIds={purchasedIds}>
       <CreditProvider clientSlug={slug}>
-        <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-14 sm:px-10">
-        <header className="mb-12 flex flex-col items-center text-center">
+        <main className="mx-auto w-full max-w-7xl flex-1 px-8 py-16 sm:px-14">
+        <header className="mb-16 flex flex-col items-center text-center">
           <Image
             src="/brand/logo.png"
             alt="Dan & Tyler Photography"
@@ -43,10 +43,7 @@ export default async function ClientWorkspacePage({
             height={37}
             className="mb-12"
           />
-          <p className="font-label font-bold text-[12px] uppercase tracking-[0.26em] text-accent">
-            Your videos
-          </p>
-          <h1 className="mt-2 font-serif text-[60px] leading-[1.05] tracking-[-0.01em] text-primary">
+          <h1 className="font-serif text-[60px] leading-[1.05] tracking-[-0.01em] text-primary">
             {client.name}
           </h1>
           <p className="mt-3 max-w-[68ch] text-[16px] leading-[1.75] text-secondary">
@@ -61,7 +58,7 @@ export default async function ClientWorkspacePage({
         {client.videos.length === 0 ? (
           <p className="text-secondary">No videos have been added yet.</p>
         ) : (
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 lg:grid-cols-4">
             {client.videos.map((video) => (
               <VideoCard
                 key={video.id}
