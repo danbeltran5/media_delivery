@@ -6,16 +6,19 @@ import {
   EmbeddedCheckout,
   EmbeddedCheckoutProvider,
 } from "@stripe/react-stripe-js";
-import { useCart } from "@/lib/cart-context";
 
 const stripePromise = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
   ? loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
   : null;
 
-export function CheckoutPanel({ onClose }: { onClose: () => void }) {
-  const { items } = useCart();
+export function CheckoutPanel({
+  videoIds,
+  onClose,
+}: {
+  videoIds: string[];
+  onClose: () => void;
+}) {
   const [error, setError] = useState<string | null>(null);
-  const videoIds = items.map((i) => i.id);
 
   const fetchClientSecret = useCallback(async () => {
     const res = await fetch("/api/checkout", {

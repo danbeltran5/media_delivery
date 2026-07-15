@@ -19,6 +19,7 @@ type CartContextValue = {
   items: CartItem[];
   isInCart: (id: string) => boolean;
   toggle: (item: CartItem) => void;
+  removeMany: (ids: string[]) => void;
   clear: () => void;
   totalCents: number;
   currency: string;
@@ -70,11 +71,14 @@ export function CartProvider({
           : [...prev, item]
       );
     };
+    const removeMany = (ids: string[]) => {
+      setItems((prev) => prev.filter((i) => !ids.includes(i.id)));
+    };
     const clear = () => setItems([]);
     const totalCents = items.reduce((sum, i) => sum + i.priceCents, 0);
     const currency = items[0]?.currency ?? "usd";
 
-    return { items, isInCart, toggle, clear, totalCents, currency };
+    return { items, isInCart, toggle, removeMany, clear, totalCents, currency };
   }, [items]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

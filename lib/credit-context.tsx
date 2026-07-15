@@ -6,10 +6,10 @@ type CreditContextValue = {
   active: boolean;
   email: string | null;
   remaining: number;
-  selectedIds: string[];
   /** Checks credits for an email and, if any are found, activates credit mode. Returns the remaining count (0 if none). */
   verifyEmail: (email: string) => Promise<number>;
-  toggle: (videoId: string) => void;
+  /** Re-fetches the remaining count for the currently active email (e.g. after redeeming some). */
+  refresh: () => Promise<void>;
   exit: () => void;
 };
 
@@ -24,53 +24,54 @@ export function CreditProvider({
 }) {
   const [email, setEmail] = useState<string | null>(null);
   const [remaining, setRemaining] = useState(0);
-  const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   const value = useMemo<CreditContextValue>(() => {
+    async function check(candidate: string) {
+      const res = await fetch("/api/credits/check", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ clientSlug, email: candidate }),
+      });
+      const data = await res.json().catch(() => null);
+      return res.ok && typeof data?.remaining === "number" ? data.remaining : 0;
+    }
+
     const verifyEmail = async (candidate: string) => {
       try {
-        const res = await fetch("/api/credits/check", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ clientSlug, email: candidate }),
-        });
-        const data = await res.json().catch(() => null);
-        if (!res.ok || !data?.remaining || data.remaining <= 0) return 0;
-
+        const found = await check(candidate);
+        if (found <= 0) return 0;
         setEmail(candidate.trim());
-        setRemaining(data.remaining);
-        setSelectedIds([]);
-        return data.remaining as number;
+        setRemaining(found);
+        return found;
       } catch {
         return 0;
       }
     };
 
-    const toggle = (videoId: string) => {
-      setSelectedIds((prev) => {
-        if (prev.includes(videoId)) return prev.filter((id) => id !== videoId);
-        if (prev.length >= remaining) return prev;
-        return [...prev, videoId];
-      });
+    const refresh = async () => {
+      if (!email) return;
+      try {
+        setRemaining(await check(email));
+      } catch {
+        // leave remaining as-is on transient failure
+      }
     };
 
     const exit = () => {
       setEmail(null);
       setRemaining(0);
-      setSelectedIds([]);
     };
 
     return {
       active: email !== null && remaining > 0,
       email,
       remaining,
-      selectedIds,
       verifyEmail,
-      toggle,
+      refresh,
       exit,
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [email, remaining, selectedIds]);
+  }, [email, remaining]);
 
   return <CreditContext.Provider value={value}>{children}</CreditContext.Provider>;
 }

@@ -45,7 +45,9 @@ export function AccessForm({ slug }: { slug: string }) {
         <span className="font-label font-bold text-[11px] uppercase tracking-[0.14em] text-accent">
           {credits.remaining} free download{credits.remaining === 1 ? "" : "s"} remaining
         </span>
-        <span className="text-[12px] text-secondary">— select your videos below.</span>
+        <span className="text-[12px] text-secondary">
+          — add videos to your cart, they&rsquo;ll be free.
+        </span>
         <button
           onClick={credits.exit}
           className="font-label font-bold text-[10px] uppercase tracking-[0.14em] text-muted underline underline-offset-2 hover:text-accent"

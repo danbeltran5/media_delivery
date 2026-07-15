@@ -7,7 +7,6 @@ import { VideoCard } from "@/components/VideoCard";
 import { CartProvider } from "@/lib/cart-context";
 import { CartBar } from "@/components/CartBar";
 import { CreditProvider } from "@/lib/credit-context";
-import { CreditBar } from "@/components/CreditBar";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { DEFAULT_TAGLINE } from "@/lib/tagline";
@@ -65,8 +64,7 @@ export default async function ClientWorkspacePage({
           </div>
         )}
       </main>
-      <CartBar />
-      <CreditBar clientSlug={slug} />
+      <CartBar clientSlug={slug} />
       <SiteFooter />
     </CreditProvider>
     </CartProvider>

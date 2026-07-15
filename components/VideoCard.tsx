@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useCart } from "@/lib/cart-context";
-import { useCredits } from "@/lib/credit-context";
 
 export function VideoCard({
   id,
@@ -24,10 +23,7 @@ export function VideoCard({
   purchased: boolean;
 }) {
   const { isInCart, toggle } = useCart();
-  const credits = useCredits();
   const inCart = isInCart(id);
-  const selected = credits.selectedIds.includes(id);
-  const atCap = !selected && credits.selectedIds.length >= credits.remaining;
 
   const [hovering, setHovering] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -140,14 +136,6 @@ export function VideoCard({
           <a href={`/api/download/${id}`} className={ghostOlive}>
             Download
           </a>
-        ) : credits.active ? (
-          <button
-            onClick={() => credits.toggle(id)}
-            disabled={atCap}
-            className={`${selected ? filledOlive : ghostOlive} disabled:opacity-40`}
-          >
-            {selected ? "Selected" : "Select (free)"}
-          </button>
         ) : (
           <button
             onClick={() => toggle({ id, title, priceCents, currency })}
