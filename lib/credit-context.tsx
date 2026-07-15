@@ -7,9 +7,8 @@ type CreditContextValue = {
   email: string | null;
   remaining: number;
   selectedIds: string[];
-  verifying: boolean;
-  verifyError: string | null;
-  verifyEmail: (email: string) => Promise<void>;
+  /** Checks credits for an email and, if any are found, activates credit mode. Returns the remaining count (0 if none). */
+  verifyEmail: (email: string) => Promise<number>;
   toggle: (videoId: string) => void;
   exit: () => void;
 };
@@ -26,13 +25,9 @@ export function CreditProvider({
   const [email, setEmail] = useState<string | null>(null);
   const [remaining, setRemaining] = useState(0);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
-  const [verifying, setVerifying] = useState(false);
-  const [verifyError, setVerifyError] = useState<string | null>(null);
 
   const value = useMemo<CreditContextValue>(() => {
     const verifyEmail = async (candidate: string) => {
-      setVerifying(true);
-      setVerifyError(null);
       try {
         const res = await fetch("/api/credits/check", {
           method: "POST",
@@ -40,21 +35,14 @@ export function CreditProvider({
           body: JSON.stringify({ clientSlug, email: candidate }),
         });
         const data = await res.json().catch(() => null);
-        if (!res.ok) {
-          setVerifyError(data?.error ?? "Could not check credits");
-          return;
-        }
-        if (!data.remaining || data.remaining <= 0) {
-          setVerifyError("No free downloads found for that email");
-          return;
-        }
+        if (!res.ok || !data?.remaining || data.remaining <= 0) return 0;
+
         setEmail(candidate.trim());
         setRemaining(data.remaining);
         setSelectedIds([]);
+        return data.remaining as number;
       } catch {
-        setVerifyError("Something went wrong");
-      } finally {
-        setVerifying(false);
+        return 0;
       }
     };
 
@@ -70,7 +58,6 @@ export function CreditProvider({
       setEmail(null);
       setRemaining(0);
       setSelectedIds([]);
-      setVerifyError(null);
     };
 
     return {
@@ -78,14 +65,12 @@ export function CreditProvider({
       email,
       remaining,
       selectedIds,
-      verifying,
-      verifyError,
       verifyEmail,
       toggle,
       exit,
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [email, remaining, selectedIds, verifying, verifyError]);
+  }, [email, remaining, selectedIds]);
 
   return <CreditContext.Provider value={value}>{children}</CreditContext.Provider>;
 }
