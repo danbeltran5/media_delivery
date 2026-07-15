@@ -30,10 +30,14 @@ export function VideoCard({
   const atCap = !selected && credits.selectedIds.length >= credits.remaining;
 
   const [hovering, setHovering] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
   const revealTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const unmountTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   function handleEnter() {
+    if (unmountTimer.current) clearTimeout(unmountTimer.current);
+    setMounted(true);
     setHovering(true);
     revealTimer.current = setTimeout(() => setShowVideo(true), 250);
   }
@@ -42,11 +46,13 @@ export function VideoCard({
     if (revealTimer.current) clearTimeout(revealTimer.current);
     setHovering(false);
     setShowVideo(false);
+    unmountTimer.current = setTimeout(() => setMounted(false), 220);
   }
 
   useEffect(() => {
     return () => {
       if (revealTimer.current) clearTimeout(revealTimer.current);
+      if (unmountTimer.current) clearTimeout(unmountTimer.current);
     };
   }, []);
 
@@ -62,7 +68,7 @@ export function VideoCard({
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
       >
-        {hovering && (
+        {mounted && (
           <iframe
             src={`${playbackUrl}?controls=false&muted=true&loop=true&autoplay=true&preload=metadata`}
             className="absolute left-0 top-1/2 h-[118.52%] w-full -translate-y-1/2"

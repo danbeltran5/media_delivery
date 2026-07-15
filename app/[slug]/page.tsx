@@ -45,7 +45,7 @@ export default async function ClientWorkspacePage({
           <p className="font-label font-bold text-[12px] uppercase tracking-[0.26em] text-accent">
             Your videos
           </p>
-          <h1 className="mt-2 font-serif text-[44px] leading-[1.1] tracking-[-0.01em] text-primary">
+          <h1 className="mt-2 font-serif text-[60px] leading-[1.05] tracking-[-0.01em] text-primary">
             {client.name}
           </h1>
           <p className="mt-3 max-w-[60ch] text-[16px] leading-[1.75] text-secondary">
