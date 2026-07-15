@@ -14,15 +14,22 @@ export async function PATCH(
   }
 
   const { id } = await params;
-  const { name, slug } = await request.json().catch(() => ({}));
+  const { name, slug, tagline } = await request.json().catch(() => ({}));
 
-  const data: { name?: string; slug?: string } = {};
+  const data: { name?: string; slug?: string; tagline?: string | null } = {};
 
   if (name !== undefined) {
     if (typeof name !== "string" || name.trim().length === 0) {
       return NextResponse.json({ error: "Name cannot be empty" }, { status: 400 });
     }
     data.name = name.trim();
+  }
+
+  if (tagline !== undefined) {
+    if (typeof tagline !== "string") {
+      return NextResponse.json({ error: "Invalid tagline" }, { status: 400 });
+    }
+    data.tagline = tagline.trim().length === 0 ? null : tagline.trim();
   }
 
   if (slug !== undefined) {

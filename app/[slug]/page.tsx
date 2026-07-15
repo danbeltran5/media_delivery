@@ -11,6 +11,7 @@ import { CreditProvider } from "@/lib/credit-context";
 import { CreditBar } from "@/components/CreditBar";
 import { AccessForm } from "@/components/AccessForm";
 import { SiteFooter } from "@/components/SiteFooter";
+import { DEFAULT_TAGLINE } from "@/lib/tagline";
 
 export default async function ClientWorkspacePage({
   params,
@@ -40,7 +41,7 @@ export default async function ClientWorkspacePage({
             alt="Dan & Tyler Photography"
             width={140}
             height={37}
-            className="mb-8"
+            className="mb-12"
           />
           <p className="font-label font-bold text-[12px] uppercase tracking-[0.26em] text-accent">
             Your videos
@@ -48,9 +49,8 @@ export default async function ClientWorkspacePage({
           <h1 className="mt-2 font-serif text-[60px] leading-[1.05] tracking-[-0.01em] text-primary">
             {client.name}
           </h1>
-          <p className="mt-3 max-w-[60ch] text-[16px] leading-[1.75] text-secondary">
-            Watch online anytime. Add videos to your cart to purchase
-            full-quality downloads.
+          <p className="mt-3 max-w-[68ch] text-[16px] leading-[1.75] text-secondary">
+            {client.tagline || DEFAULT_TAGLINE}
           </p>
           <div className="mt-5">
             <AccessForm slug={slug} />

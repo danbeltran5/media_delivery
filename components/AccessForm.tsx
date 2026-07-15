@@ -62,7 +62,7 @@ export function AccessForm({ slug }: { slug: string }) {
         onClick={() => setOpen(true)}
         className="w-full text-center font-label font-bold text-[11px] uppercase tracking-[0.14em] text-muted underline underline-offset-4 transition-colors duration-[180ms] hover:text-accent"
       >
-        Have downloads waiting? Enter your email
+        Restore purchase or activate download credits
       </button>
     );
   }

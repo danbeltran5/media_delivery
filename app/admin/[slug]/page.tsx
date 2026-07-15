@@ -5,6 +5,7 @@ import { isAdminAuthed } from "@/lib/admin-auth";
 import { streamThumbnailUrl } from "@/lib/cloudflare-stream";
 import { AdminLoginForm } from "@/components/AdminLoginForm";
 import { AdminGrantCreditsForm } from "@/components/AdminGrantCreditsForm";
+import { AdminTaglineForm } from "@/components/AdminTaglineForm";
 
 function formatPrice(cents: number) {
   return new Intl.NumberFormat("en-US", {
@@ -79,6 +80,13 @@ export default async function AdminClientDetailPage({
           /{client.slug}
         </Link>
       </header>
+
+      <section className="mb-12">
+        <h2 className="mb-4 font-serif text-[22px] text-primary">
+          Gallery description
+        </h2>
+        <AdminTaglineForm clientId={client.id} tagline={client.tagline} />
+      </section>
 
       <section className="mb-12">
         <h2 className="mb-4 font-serif text-[22px] text-primary">
