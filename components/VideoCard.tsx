@@ -67,6 +67,19 @@ export function VideoCard({
     return () => window.removeEventListener("keydown", handleKey);
   }, [expanded]);
 
+  function handleDownload() {
+    const tab = window.open(`/api/download/${id}`, "_blank");
+    if (tab) {
+      setTimeout(() => {
+        try {
+          tab.close();
+        } catch {
+          // ignore -- browser may already control/have closed the tab
+        }
+      }, 3000);
+    }
+  }
+
   const buttonBase =
     "px-2.5 py-1 text-center font-label font-bold text-[10px] uppercase tracking-[0.14em] transition-colors duration-[180ms] sm:px-4 sm:py-2 sm:text-[12px] sm:tracking-[0.16em]";
   const ghostOlive = `${buttonBase} border border-olive text-olive hover:bg-olive hover:text-on-dark`;
@@ -133,9 +146,9 @@ export function VideoCard({
           )}
         </div>
         {purchased ? (
-          <a href={`/api/download/${id}`} className={ghostOlive}>
+          <button onClick={handleDownload} className={ghostOlive}>
             Download
-          </a>
+          </button>
         ) : (
           <button
             onClick={() => toggle({ id, title, priceCents, currency })}
