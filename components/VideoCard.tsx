@@ -71,10 +71,13 @@ export function VideoCard({
     const tab = window.open(`/api/download/${id}`, "_blank");
     if (!tab) return;
 
-    // Safari can show a native "allow downloads on this site" prompt that
-    // delays the download and blocks close() while it's up, so retry a few
-    // times across the window instead of a single attempt at the end.
-    const attempts = [400, 800, 1200, 1600, 2000];
+    // Closing too soon after opening cancels the in-flight download before
+    // the browser has actually started saving it (confirmed: an early
+    // close aborted the download entirely). Give it real time to begin --
+    // especially in Safari, where a native "allow downloads" prompt can
+    // delay the start -- before the first close attempt, then retry in
+    // case that first attempt lands mid-prompt.
+    const attempts = [2500, 3200, 4000];
     for (const delay of attempts) {
       setTimeout(() => {
         try {
