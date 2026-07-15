@@ -43,12 +43,14 @@ export function SiteFooter() {
             {`© ${year} Dan & Tyler Photography`}
           </p>
         </div>
-        <Image
-          src="/brand/logo.png"
-          alt="Dan & Tyler Photography"
-          width={140}
-          height={37}
-        />
+        <a href="https://danandtyler.com" target="_blank">
+          <Image
+            src="/brand/logo.png"
+            alt="Dan & Tyler Photography"
+            width={140}
+            height={37}
+          />
+        </a>
       </div>
     </footer>
   );
