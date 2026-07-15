@@ -86,7 +86,7 @@ export default async function AdminClientDetailPage({
         <h2 className="mb-4 font-serif text-[22px] text-primary">
           Free download credits
         </h2>
-        <div className="mb-6 rounded-sm border border-line bg-card p-4">
+        <div className="mb-6 border border-line bg-card p-4">
           <AdminGrantCreditsForm clientId={client.id} />
         </div>
         {client.credits.length === 0 ? (
@@ -101,7 +101,7 @@ export default async function AdminClientDetailPage({
               return (
                 <div
                   key={credit.id}
-                  className="overflow-hidden rounded-sm border border-line bg-card"
+                  className="overflow-hidden border border-line bg-card"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2 border-b border-hairline p-4">
                     <span className="text-[15px] text-primary">{credit.email}</span>
@@ -116,7 +116,9 @@ export default async function AdminClientDetailPage({
                           key={purchase.id}
                           className="flex flex-wrap items-center justify-between gap-2 px-4 py-3 text-[14px]"
                         >
-                          <span className="text-secondary">{purchase.video.title}</span>
+                          <span className="font-label font-bold text-[12px] uppercase tracking-[0.1em] text-secondary">
+                            {purchase.video.title}
+                          </span>
                           <span className="text-muted">
                             Redeemed {formatDate(purchase.createdAt)}
                           </span>
@@ -142,16 +144,16 @@ export default async function AdminClientDetailPage({
         {client.videos.map((video) => (
           <div
             key={video.id}
-            className="overflow-hidden rounded-sm border border-line bg-card"
+            className="overflow-hidden border border-line bg-card"
           >
             <div className="flex flex-wrap items-center gap-4 border-b border-hairline p-4">
               <img
                 src={streamThumbnailUrl(video.cfStreamUid)}
                 alt={video.title}
-                className="h-16 w-12 rounded-xs border border-hairline object-cover"
+                className="h-16 w-12 border border-hairline object-cover"
               />
               <div className="flex-1">
-                <h2 className="font-serif text-[18px] text-primary">
+                <h2 className="font-label font-bold text-[15px] uppercase tracking-[0.1em] text-primary">
                   {video.title}
                 </h2>
                 <AdminVideoPriceForm videoId={video.id} priceCents={video.priceCents} />

@@ -41,7 +41,7 @@ export function AdminLoginForm() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
-          className="rounded-xs border border-line bg-canvas px-3.5 py-2.5 text-[15px] text-primary outline-none transition-colors duration-[180ms] focus:border-strong"
+          className="border border-line bg-canvas px-3.5 py-2.5 text-[15px] text-primary outline-none transition-colors duration-[180ms] focus:border-strong"
         />
         <button
           type="submit"

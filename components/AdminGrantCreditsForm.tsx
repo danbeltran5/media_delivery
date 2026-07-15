@@ -41,7 +41,7 @@ export function AdminGrantCreditsForm({ clientId }: { clientId: string }) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="client@example.com"
-          className="rounded-xs border border-line bg-canvas px-3 py-1.5 text-[14px] text-primary outline-none focus:border-strong"
+          className="border border-line bg-canvas px-3 py-1.5 text-[14px] text-primary outline-none focus:border-strong"
         />
       </div>
       <div className="flex flex-col gap-1">
@@ -54,7 +54,7 @@ export function AdminGrantCreditsForm({ clientId }: { clientId: string }) {
           min={1}
           value={credits}
           onChange={(e) => setCredits(e.target.value)}
-          className="w-24 rounded-xs border border-line bg-canvas px-3 py-1.5 text-[14px] text-primary outline-none focus:border-strong"
+          className="w-24 border border-line bg-canvas px-3 py-1.5 text-[14px] text-primary outline-none focus:border-strong"
         />
       </div>
       <button

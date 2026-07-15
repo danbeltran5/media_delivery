@@ -41,7 +41,7 @@ export function AdminTaglineForm({
         onChange={(e) => setValue(e.target.value)}
         placeholder={DEFAULT_TAGLINE}
         rows={3}
-        className="w-full resize-y rounded-xs border border-line bg-canvas px-3.5 py-2.5 text-[15px] text-primary outline-none transition-colors duration-[180ms] focus:border-strong"
+        className="w-full resize-y border border-line bg-canvas px-3.5 py-2.5 text-[15px] text-primary outline-none transition-colors duration-[180ms] focus:border-strong"
       />
       <div className="flex flex-wrap items-center gap-3">
         <button

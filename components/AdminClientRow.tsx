@@ -67,7 +67,7 @@ export function AdminClientRow({
               <input
                 value={nameValue}
                 onChange={(e) => setNameValue(e.target.value)}
-                className="rounded-xs border border-line bg-canvas px-3 py-1.5 text-[14px] text-primary outline-none focus:border-strong"
+                className="border border-line bg-canvas px-3 py-1.5 text-[14px] text-primary outline-none focus:border-strong"
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -77,7 +77,7 @@ export function AdminClientRow({
               <input
                 value={slugValue}
                 onChange={(e) => setSlugValue(e.target.value)}
-                className="rounded-xs border border-line bg-canvas px-3 py-1.5 text-[14px] text-primary outline-none focus:border-strong"
+                className="border border-line bg-canvas px-3 py-1.5 text-[14px] text-primary outline-none focus:border-strong"
               />
             </div>
             <button
@@ -94,7 +94,7 @@ export function AdminClientRow({
                 setSlugValue(slug);
                 setError(null);
               }}
-              className="rounded-xs border border-line px-4 py-1.5 font-label font-bold text-[12px] uppercase tracking-[0.18em] text-secondary hover:bg-hover"
+              className="border border-line px-4 py-1.5 font-label font-bold text-[12px] uppercase tracking-[0.18em] text-secondary hover:bg-hover"
             >
               Cancel
             </button>

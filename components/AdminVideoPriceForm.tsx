@@ -67,7 +67,7 @@ export function AdminVideoPriceForm({
         min="0"
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        className="w-20 rounded-xs border border-line bg-canvas px-2 py-1 text-[13px] text-primary outline-none focus:border-strong"
+        className="w-20 border border-line bg-canvas px-2 py-1 text-[13px] text-primary outline-none focus:border-strong"
       />
       <button
         onClick={handleSave}

@@ -70,7 +70,7 @@ export default async function AdminPage() {
       {rows.length === 0 ? (
         <p className="text-secondary">No clients yet.</p>
       ) : (
-        <div className="overflow-x-auto rounded-sm border border-line bg-card">
+        <div className="overflow-x-auto border border-line bg-card">
           <table className="w-full min-w-[720px] border-collapse">
             <thead>
               <tr className="border-b border-hairline">
