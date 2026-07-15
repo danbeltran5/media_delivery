@@ -2,7 +2,7 @@ import Image from "next/image";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { streamPlaybackUrl } from "@/lib/cloudflare-stream";
+import { streamPlaybackUrl, streamThumbnailUrl } from "@/lib/cloudflare-stream";
 import { purchaseCookieName } from "@/lib/purchase-cookie";
 import { VideoCard } from "@/components/VideoCard";
 import { CartProvider } from "@/lib/cart-context";
@@ -42,11 +42,11 @@ export default async function ClientWorkspacePage({
             height={37}
             className="mb-8"
           />
-          <p className="font-label font-bold text-[14px] uppercase tracking-[0.26em] text-accent">
+          <p className="font-label font-bold text-[12px] uppercase tracking-[0.26em] text-accent">
             Your videos
           </p>
-          <h1 className="mt-2 font-serif text-[36px] leading-[1.1] tracking-[-0.01em] text-primary">
-            {client.name}&rsquo;s videos
+          <h1 className="mt-2 font-serif text-[44px] leading-[1.1] tracking-[-0.01em] text-primary">
+            {client.name}
           </h1>
           <p className="mt-3 max-w-[60ch] text-[16px] leading-[1.75] text-secondary">
             Watch online anytime. Add videos to your cart to purchase
@@ -71,6 +71,7 @@ export default async function ClientWorkspacePage({
                 priceCents={video.priceCents}
                 currency={video.currency}
                 playbackUrl={streamPlaybackUrl(video.cfStreamUid)}
+                thumbnailUrl={streamThumbnailUrl(video.cfStreamUid)}
                 purchased={purchasedIds.includes(video.id)}
               />
             ))}
