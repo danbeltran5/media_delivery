@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(origin);
   }
 
-  const clientUrl = `${origin}/c/${purchases[0].video.client.slug}`;
+  const clientUrl = `${origin}/${purchases[0].video.client.slug}`;
 
   const session = await getStripe().checkout.sessions.retrieve(sessionId);
   if (session.payment_status !== "paid") {

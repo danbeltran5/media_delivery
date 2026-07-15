@@ -12,7 +12,7 @@ full-quality downloads.
 - **Hosting**: [Vercel](https://vercel.com/)
 
 Built to start with one client, and grow to many — each client gets their
-own private page at `/c/<slug>` listing their videos.
+own private page at `/<slug>` listing their videos.
 
 ## How it works
 
@@ -20,7 +20,7 @@ own private page at `/c/<slug>` listing their videos.
    the file to Cloudflare Stream (for free preview streaming) and records
    the video, along with a Dropbox link to the downloadable file, in the
    database.
-2. You send the client their link: `https://yourapp.vercel.app/c/<slug>`.
+2. You send the client their link: `https://yourapp.vercel.app/<slug>`.
 3. They can watch any video for free, right on the page.
 4. They add whichever videos they want to a cart — a sticky bar at the
    bottom shows the running total.
@@ -131,7 +131,7 @@ npm run add-video -- \
 
 Notes:
 
-- `--client` is a URL slug — the client's link will be `/c/smith-wedding`.
+- `--client` is a URL slug — the client's link will be `/smith-wedding`.
 - `--client-name` is only needed the first time you use a given `--client`
   slug (it creates the client). Adding more videos for the same client
   later, you can omit it.

@@ -16,7 +16,7 @@ export default function Home() {
       <p className="text-secondary">
         This is an internal tool. Send clients their private link, e.g.{" "}
         <code className="rounded-xs border border-line bg-canvas px-1.5 py-0.5 text-[14px]">
-          /c/their-slug
+          /their-slug
         </code>
         .
       </p>

@@ -121,7 +121,7 @@ async function main() {
     console.log("Unmatched Dropbox files (no Cloudflare Stream video with the same name):");
     for (const name of unmatched) console.log(`  - ${name}`);
   }
-  console.log(`\nClient link: /c/${client.slug}`);
+  console.log(`\nClient link: /${client.slug}`);
 }
 
 main()

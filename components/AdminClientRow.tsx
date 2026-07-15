@@ -72,7 +72,7 @@ export function AdminClientRow({
             </div>
             <div className="flex flex-col gap-1">
               <label className="font-label font-bold text-[11px] uppercase tracking-[0.18em] text-muted">
-                URL slug (/c/...)
+                URL slug (/...)
               </label>
               <input
                 value={slugValue}
@@ -116,11 +116,11 @@ export function AdminClientRow({
       <td className="px-4 py-4">
         <div className="font-serif text-[18px] text-primary">{name}</div>
         <Link
-          href={`/c/${slug}`}
+          href={`/${slug}`}
           target="_blank"
           className="text-[13px] text-accent underline underline-offset-2"
         >
-          /c/{slug}
+          /{slug}
         </Link>
       </td>
       <td className="px-4 py-4 text-[14px] text-secondary">{videoCount}</td>

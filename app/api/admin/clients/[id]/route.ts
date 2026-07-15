@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { isAdminAuthed } from "@/lib/admin-auth";
 
 const SLUG_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+const RESERVED_SLUGS = new Set(["admin", "api", "c"]);
 
 export async function PATCH(
   request: NextRequest,
@@ -30,6 +31,9 @@ export async function PATCH(
         { error: "URL must be lowercase letters, numbers, and hyphens only" },
         { status: 400 }
       );
+    }
+    if (RESERVED_SLUGS.has(slug)) {
+      return NextResponse.json({ error: "That URL is reserved" }, { status: 400 });
     }
     const existing = await prisma.client.findUnique({ where: { slug } });
     if (existing && existing.id !== id) {

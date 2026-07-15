@@ -197,7 +197,7 @@ async function main() {
   console.log(
     `\nNote: Cloudflare Stream may take a few minutes to finish encoding newly uploaded videos before playback works.`
   );
-  console.log(`Client link: /c/${client.slug}`);
+  console.log(`Client link: /${client.slug}`);
 }
 
 main()

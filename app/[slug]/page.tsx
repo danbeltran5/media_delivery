@@ -15,7 +15,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 
 export default async function ClientWorkspacePage({
   params,
-}: PageProps<"/c/[slug]">) {
+}: PageProps<"/[slug]">) {
   const { slug } = await params;
 
   const client = await prisma.client.findUnique({

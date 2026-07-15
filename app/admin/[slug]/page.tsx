@@ -72,11 +72,11 @@ export default async function AdminClientDetailPage({
           {client.name}
         </h1>
         <Link
-          href={`/c/${client.slug}`}
+          href={`/${client.slug}`}
           target="_blank"
           className="text-[14px] text-accent underline underline-offset-2"
         >
-          /c/{client.slug}
+          /{client.slug}
         </Link>
       </header>
 
