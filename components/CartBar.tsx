@@ -78,16 +78,25 @@ export function CartBar({ clientSlug }: { clientSlug: string }) {
                 className="flex items-center justify-between gap-3 text-[13px]"
               >
                 <span className="text-secondary">{item.title}</span>
-                <span
-                  className={
-                    index < freeCount
-                      ? "font-label font-bold uppercase tracking-[0.1em] text-accent"
-                      : "text-primary"
-                  }
-                >
-                  {index < freeCount
-                    ? "Free (credit)"
-                    : formatPrice(item.priceCents, item.currency)}
+                <span className="flex items-center gap-3">
+                  <span
+                    className={
+                      index < freeCount
+                        ? "font-label font-bold uppercase tracking-[0.1em] text-accent"
+                        : "text-primary"
+                    }
+                  >
+                    {index < freeCount
+                      ? "Free (credit)"
+                      : formatPrice(item.priceCents, item.currency)}
+                  </span>
+                  <button
+                    onClick={() => removeMany([item.id])}
+                    aria-label={`Remove ${item.title} from cart`}
+                    className="text-muted transition-colors duration-[180ms] hover:text-accent"
+                  >
+                    ✕
+                  </button>
                 </span>
               </div>
             ))}

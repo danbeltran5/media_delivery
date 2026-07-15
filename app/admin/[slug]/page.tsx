@@ -7,6 +7,7 @@ import { AdminLoginForm } from "@/components/AdminLoginForm";
 import { AdminGrantCreditsForm } from "@/components/AdminGrantCreditsForm";
 import { AdminTaglineForm } from "@/components/AdminTaglineForm";
 import { AdminVideoPriceForm } from "@/components/AdminVideoPriceForm";
+import { AdminBulkPriceForm } from "@/components/AdminBulkPriceForm";
 
 function formatDate(date: Date) {
   return new Intl.DateTimeFormat("en-US", {
@@ -138,6 +139,13 @@ export default async function AdminClientDetailPage({
             })}
           </div>
         )}
+      </section>
+
+      <section className="mb-8">
+        <h2 className="mb-4 font-serif text-[22px] text-primary">
+          Bulk price update
+        </h2>
+        <AdminBulkPriceForm clientId={client.id} />
       </section>
 
       <div className="flex flex-col gap-6">
