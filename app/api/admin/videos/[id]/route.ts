@@ -11,16 +11,52 @@ export async function PATCH(
   }
 
   const { id } = await params;
-  const { priceCents } = await request.json().catch(() => ({}));
+  const { priceCents, cfStreamUid, downloadUrl } = await request
+    .json()
+    .catch(() => ({}));
 
-  if (
-    typeof priceCents !== "number" ||
-    !Number.isInteger(priceCents) ||
-    priceCents < 0
-  ) {
-    return NextResponse.json({ error: "Invalid price" }, { status: 400 });
+  const data: { priceCents?: number; cfStreamUid?: string; downloadUrl?: string } = {};
+
+  if (priceCents !== undefined) {
+    if (
+      typeof priceCents !== "number" ||
+      !Number.isInteger(priceCents) ||
+      priceCents < 0
+    ) {
+      return NextResponse.json({ error: "Invalid price" }, { status: 400 });
+    }
+    data.priceCents = priceCents;
   }
 
-  const video = await prisma.video.update({ where: { id }, data: { priceCents } });
+  if (cfStreamUid !== undefined) {
+    if (typeof cfStreamUid !== "string" || cfStreamUid.trim().length === 0) {
+      return NextResponse.json(
+        { error: "Cloudflare Stream UID cannot be empty" },
+        { status: 400 }
+      );
+    }
+    data.cfStreamUid = cfStreamUid.trim();
+  }
+
+  if (downloadUrl !== undefined) {
+    if (typeof downloadUrl !== "string" || downloadUrl.trim().length === 0) {
+      return NextResponse.json(
+        { error: "Download link cannot be empty" },
+        { status: 400 }
+      );
+    }
+    try {
+      new URL(downloadUrl.trim());
+    } catch {
+      return NextResponse.json({ error: "Invalid download link" }, { status: 400 });
+    }
+    data.downloadUrl = downloadUrl.trim();
+  }
+
+  if (Object.keys(data).length === 0) {
+    return NextResponse.json({ error: "Nothing to update" }, { status: 400 });
+  }
+
+  const video = await prisma.video.update({ where: { id }, data });
   return NextResponse.json({ video });
 }

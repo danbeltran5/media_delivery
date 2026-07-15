@@ -8,6 +8,7 @@ import { AdminGrantCreditsForm } from "@/components/AdminGrantCreditsForm";
 import { AdminTaglineForm } from "@/components/AdminTaglineForm";
 import { AdminVideoPriceForm } from "@/components/AdminVideoPriceForm";
 import { AdminBulkPriceForm } from "@/components/AdminBulkPriceForm";
+import { AdminReplaceVideoForm } from "@/components/AdminReplaceVideoForm";
 
 function formatDate(date: Date) {
   return new Intl.DateTimeFormat("en-US", {
@@ -170,6 +171,13 @@ export default async function AdminClientDetailPage({
                 {video.purchases.length} purchase
                 {video.purchases.length === 1 ? "" : "s"}
               </span>
+            </div>
+            <div className="border-b border-hairline p-4">
+              <AdminReplaceVideoForm
+                videoId={video.id}
+                cfStreamUid={video.cfStreamUid}
+                downloadUrl={video.downloadUrl}
+              />
             </div>
             {video.purchases.length > 0 && (
               <div className="divide-y divide-hairline">
