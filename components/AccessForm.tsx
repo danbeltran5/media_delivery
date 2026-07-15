@@ -41,7 +41,7 @@ export function AccessForm({ slug }: { slug: string }) {
 
   if (credits.active) {
     return (
-      <div className="flex flex-wrap items-center justify-end gap-2">
+      <div className="flex flex-wrap items-center justify-center gap-2">
         <span className="font-label font-bold text-[11px] uppercase tracking-[0.14em] text-accent">
           {credits.remaining} free download{credits.remaining === 1 ? "" : "s"} remaining
         </span>
@@ -60,7 +60,7 @@ export function AccessForm({ slug }: { slug: string }) {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="text-right font-label font-bold text-[11px] uppercase tracking-[0.14em] text-muted underline underline-offset-4 transition-colors duration-[180ms] hover:text-accent"
+        className="text-center font-label font-bold text-[11px] uppercase tracking-[0.14em] text-muted underline underline-offset-4 transition-colors duration-[180ms] hover:text-accent"
       >
         Restore purchase or activate download credits
       </button>
@@ -68,14 +68,14 @@ export function AccessForm({ slug }: { slug: string }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-wrap items-center justify-end gap-2">
+    <form onSubmit={handleSubmit} className="flex flex-wrap items-center justify-center gap-2">
       <input
         type="email"
         required
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="you@example.com"
-        className="rounded-xs border border-line bg-canvas px-3 py-1.5 text-[13px] text-primary outline-none transition-colors duration-[180ms] focus:border-strong"
+        className="rounded-xs border border-line bg-page px-3 py-1.5 text-[13px] text-primary outline-none transition-colors duration-[180ms] focus:border-strong"
       />
       <button
         type="submit"

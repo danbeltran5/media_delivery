@@ -5,7 +5,7 @@ export function SiteFooter() {
 
   return (
     <footer className="border-t border-hairline">
-      <div className="mx-auto flex w-full max-w-7xl flex-col-reverse items-start justify-between gap-8 px-8 py-10 sm:flex-row sm:items-end sm:px-14">
+      <div className="mx-auto flex w-full max-w-7xl flex-col-reverse items-start justify-between gap-8 px-8 py-10 sm:flex-row sm:px-14">
         <div className="flex flex-col gap-4">
           <p className="font-serif text-[18px] text-primary">Dan &amp; Tyler Photography</p>
           <div className="flex flex-col gap-1 text-[14px] text-secondary sm:flex-row sm:gap-6">

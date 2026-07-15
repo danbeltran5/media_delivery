@@ -72,7 +72,7 @@ export function VideoCard({
   }, [expanded]);
 
   const buttonBase =
-    "px-4 py-2 text-center font-label font-bold text-[12px] uppercase tracking-[0.16em] transition-colors duration-[180ms]";
+    "px-2.5 py-1 text-center font-label font-bold text-[10px] uppercase tracking-[0.14em] transition-colors duration-[180ms] sm:px-4 sm:py-2 sm:text-[12px] sm:tracking-[0.16em]";
   const ghostOlive = `${buttonBase} border border-olive text-olive hover:bg-olive hover:text-on-dark`;
   const filledOlive = `${buttonBase} border border-olive bg-olive text-on-dark hover:bg-olive/90`;
 
@@ -181,6 +181,14 @@ export function VideoCard({
               allowFullScreen
               title={title}
             />
+            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/brand/watermark.png"
+                alt=""
+                className="h-1/3 w-auto opacity-40"
+              />
+            </div>
           </div>
         </div>
       )}
