@@ -67,27 +67,21 @@ export function VideoCard({
     return () => window.removeEventListener("keydown", handleKey);
   }, [expanded]);
 
-  function handleDownload() {
-    const tab = window.open(`/api/download/${id}`, "_blank");
-    if (!tab) return;
+  const [showDownloadHint, setShowDownloadHint] = useState(false);
+  const downloadHintTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-    // Closing too soon after opening cancels the in-flight download before
-    // the browser has actually started saving it (confirmed: an early
-    // close aborted the download entirely). Give it real time to begin --
-    // especially in Safari, where a native "allow downloads" prompt can
-    // delay the start -- before the first close attempt, then retry in
-    // case that first attempt lands mid-prompt.
-    const attempts = [2500, 3200, 4000];
-    for (const delay of attempts) {
-      setTimeout(() => {
-        try {
-          if (!tab.closed) tab.close();
-        } catch {
-          // ignore -- browser may already control/have closed the tab
-        }
-      }, delay);
-    }
+  function handleDownload() {
+    window.open(`/api/download/${id}`, "_blank");
+    setShowDownloadHint(true);
+    if (downloadHintTimer.current) clearTimeout(downloadHintTimer.current);
+    downloadHintTimer.current = setTimeout(() => setShowDownloadHint(false), 6000);
   }
+
+  useEffect(() => {
+    return () => {
+      if (downloadHintTimer.current) clearTimeout(downloadHintTimer.current);
+    };
+  }, []);
 
   const buttonBase =
     "px-2.5 py-1 text-center font-label font-bold text-[10px] uppercase tracking-[0.14em] transition-colors duration-[180ms] sm:px-4 sm:py-2 sm:text-[12px] sm:tracking-[0.16em]";
@@ -167,6 +161,11 @@ export function VideoCard({
           </button>
         )}
       </div>
+      {showDownloadHint && (
+        <p className="mt-1.5 text-right text-[12px] text-muted">
+          Downloading in a new tab — you can close it once it&rsquo;s done.
+        </p>
+      )}
 
       {expanded && (
         <div
