@@ -18,10 +18,11 @@ export function streamPlaybackUrl(uid: string) {
   return `https://${code}.cloudflarestream.com/${uid}/iframe`;
 }
 
-export function streamThumbnailUrl(uid: string) {
+export function streamThumbnailUrl(uid: string, seconds = 0) {
   const code = process.env.CLOUDFLARE_STREAM_CUSTOMER_CODE;
   if (!code) throw new Error("CLOUDFLARE_STREAM_CUSTOMER_CODE is not set");
-  return `https://${code}.cloudflarestream.com/${uid}/thumbnails/thumbnail.jpg`;
+  const base = `https://${code}.cloudflarestream.com/${uid}/thumbnails/thumbnail.jpg`;
+  return seconds > 0 ? `${base}?time=${seconds}s` : base;
 }
 
 export type StreamVideo = { uid: string; name: string | null };

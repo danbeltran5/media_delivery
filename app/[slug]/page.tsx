@@ -57,7 +57,7 @@ export default async function ClientWorkspacePage({
                 priceCents={video.priceCents}
                 currency={video.currency}
                 playbackUrl={streamPlaybackUrl(video.cfStreamUid)}
-                thumbnailUrl={streamThumbnailUrl(video.cfStreamUid)}
+                thumbnailUrl={streamThumbnailUrl(video.cfStreamUid, video.thumbnailSec)}
                 purchased={purchasedIds.includes(video.id)}
                 orientation={client.orientation === "landscape" ? "landscape" : "portrait"}
                 showWatermark={client.watermark}

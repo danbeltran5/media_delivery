@@ -11,11 +11,16 @@ export async function PATCH(
   }
 
   const { id } = await params;
-  const { priceCents, cfStreamUid, downloadUrl } = await request
+  const { priceCents, cfStreamUid, downloadUrl, thumbnailSec } = await request
     .json()
     .catch(() => ({}));
 
-  const data: { priceCents?: number; cfStreamUid?: string; downloadUrl?: string } = {};
+  const data: {
+    priceCents?: number;
+    cfStreamUid?: string;
+    downloadUrl?: string;
+    thumbnailSec?: number;
+  } = {};
 
   if (priceCents !== undefined) {
     if (
@@ -51,6 +56,17 @@ export async function PATCH(
       return NextResponse.json({ error: "Invalid download link" }, { status: 400 });
     }
     data.downloadUrl = downloadUrl.trim();
+  }
+
+  if (thumbnailSec !== undefined) {
+    if (
+      typeof thumbnailSec !== "number" ||
+      !Number.isInteger(thumbnailSec) ||
+      thumbnailSec < 0
+    ) {
+      return NextResponse.json({ error: "Invalid thumbnail time" }, { status: 400 });
+    }
+    data.thumbnailSec = thumbnailSec;
   }
 
   if (Object.keys(data).length === 0) {

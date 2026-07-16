@@ -43,6 +43,7 @@ model Video {
   description  String?
   cfStreamUid  String     @unique
   downloadUrl  String
+  thumbnailSec Int        @default(0) // seconds into the video to pull the thumbnail frame from
   priceCents   Int
   currency     String     @default("usd")
   createdAt    DateTime   @default(now())

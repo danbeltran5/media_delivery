@@ -157,7 +157,7 @@ export default async function AdminClientDetailPage({
           >
             <div className="flex flex-wrap items-center gap-4 border-b border-hairline p-4">
               <img
-                src={streamThumbnailUrl(video.cfStreamUid)}
+                src={streamThumbnailUrl(video.cfStreamUid, video.thumbnailSec)}
                 alt={video.title}
                 className="h-16 w-12 border border-hairline object-cover"
               />
@@ -177,6 +177,8 @@ export default async function AdminClientDetailPage({
                 videoId={video.id}
                 cfStreamUid={video.cfStreamUid}
                 downloadUrl={video.downloadUrl}
+                thumbnailSec={video.thumbnailSec}
+                thumbnailBaseUrl={streamThumbnailUrl(video.cfStreamUid)}
               />
             </div>
             {video.purchases.length > 0 && (
