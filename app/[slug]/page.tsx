@@ -59,6 +59,7 @@ export default async function ClientWorkspacePage({
                 playbackUrl={streamPlaybackUrl(video.cfStreamUid)}
                 thumbnailUrl={streamThumbnailUrl(video.cfStreamUid)}
                 purchased={purchasedIds.includes(video.id)}
+                orientation={client.orientation === "landscape" ? "landscape" : "portrait"}
               />
             ))}
           </div>

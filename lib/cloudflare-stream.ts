@@ -83,3 +83,79 @@ export async function uploadVideo(
   }
   return data.result.uid as string;
 }
+
+const TUS_CHUNK_SIZE = 100 * 1024 * 1024; // must be a multiple of 256 KiB
+
+/**
+ * Uploads a local video file to Cloudflare Stream via the TUS resumable
+ * protocol, in fixed-size chunks. Required for files over Cloudflare's
+ * ~200MB simple-upload limit; works for any size (large weddings, etc).
+ */
+export async function uploadLargeVideo(
+  filePath: string,
+  fileName: string,
+  onProgress?: (uploadedBytes: number, totalBytes: number) => void
+): Promise<string> {
+  const fs = await import("node:fs/promises");
+  const stat = await fs.stat(filePath);
+  const size = stat.size;
+
+  const createRes = await fetch(`${API_BASE}/accounts/${accountId()}/stream`, {
+    method: "POST",
+    headers: {
+      ...authHeaders(),
+      "Tus-Resumable": "1.0.0",
+      "Upload-Length": String(size),
+      "Upload-Metadata": `name ${Buffer.from(fileName).toString("base64")}`,
+    },
+  });
+  if (!createRes.ok) {
+    throw new Error(
+      `Cloudflare Stream TUS create failed: ${createRes.status} ${await createRes.text()}`
+    );
+  }
+  const location = createRes.headers.get("Location");
+  const mediaId = createRes.headers.get("Stream-Media-Id");
+  if (!location || !mediaId) {
+    throw new Error("Cloudflare Stream TUS create response missing Location/Stream-Media-Id");
+  }
+
+  const fh = await fs.open(filePath, "r");
+  try {
+    let offset = 0;
+    while (offset < size) {
+      const chunkSize = Math.min(TUS_CHUNK_SIZE, size - offset);
+      const buffer = Buffer.alloc(chunkSize);
+      await fh.read(buffer, 0, chunkSize, offset);
+
+      let attempt = 0;
+      for (;;) {
+        const patchRes = await fetch(location, {
+          method: "PATCH",
+          headers: {
+            ...authHeaders(),
+            "Tus-Resumable": "1.0.0",
+            "Upload-Offset": String(offset),
+            "Content-Type": "application/offset+octet-stream",
+          },
+          body: buffer,
+        });
+        if (patchRes.ok) break;
+        attempt++;
+        if (attempt > 5) {
+          throw new Error(
+            `Cloudflare Stream TUS chunk upload failed at offset ${offset}: ${patchRes.status} ${await patchRes.text()}`
+          );
+        }
+        await new Promise((r) => setTimeout(r, 2000 * attempt));
+      }
+
+      offset += chunkSize;
+      onProgress?.(offset, size);
+    }
+  } finally {
+    await fh.close();
+  }
+
+  return mediaId;
+}

@@ -12,6 +12,7 @@ export function VideoCard({
   playbackUrl,
   thumbnailUrl,
   purchased,
+  orientation = "portrait",
 }: {
   id: string;
   title: string;
@@ -21,7 +22,9 @@ export function VideoCard({
   playbackUrl: string;
   thumbnailUrl: string;
   purchased: boolean;
+  orientation?: "portrait" | "landscape";
 }) {
+  const landscape = orientation === "landscape";
   const { isInCart, toggle } = useCart();
   const inCart = isInCart(id);
 
@@ -93,7 +96,9 @@ export function VideoCard({
       <div
         role="button"
         aria-label={`Play ${title}`}
-        className="relative aspect-[2/3] w-full cursor-pointer overflow-hidden bg-dark"
+        className={`relative w-full cursor-pointer overflow-hidden bg-dark ${
+          landscape ? "aspect-[3/2]" : "aspect-[2/3]"
+        }`}
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
         onClick={() => setExpanded(true)}
@@ -101,7 +106,11 @@ export function VideoCard({
         {mounted && !expanded && (
           <iframe
             src={`${playbackUrl}?controls=false&muted=true&loop=true&autoplay=true&preload=metadata`}
-            className="absolute left-0 top-1/2 h-[118.52%] w-full -translate-y-1/2"
+            className={
+              landscape
+                ? "absolute left-1/2 top-0 h-full w-[118.52%] -translate-x-1/2"
+                : "absolute left-0 top-1/2 h-[118.52%] w-full -translate-y-1/2"
+            }
             allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
             allowFullScreen
             title={title}
@@ -173,7 +182,11 @@ export function VideoCard({
           onClick={() => setExpanded(false)}
         >
           <div
-            className="relative h-[85vh] aspect-[9/16] max-w-full"
+            className={
+              landscape
+                ? "relative aspect-[16/9] w-full max-w-4xl"
+                : "relative aspect-[9/16] h-[85vh] max-w-full"
+            }
             onClick={(e) => e.stopPropagation()}
           >
             <button
