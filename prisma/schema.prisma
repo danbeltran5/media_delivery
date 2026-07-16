@@ -11,14 +11,16 @@ datasource db {
 }
 
 model Client {
-  id          String   @id @default(cuid())
-  slug        String   @unique
-  name        String
-  tagline     String?
-  orientation String   @default("portrait") // portrait | landscape
-  createdAt   DateTime @default(now())
-  videos      Video[]
-  credits     Credit[]
+  id             String   @id @default(cuid())
+  slug           String   @unique
+  name           String
+  tagline        String?
+  orientation    String   @default("portrait") // portrait | landscape
+  watermark      Boolean  @default(true)
+  showAccessForm Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  videos         Video[]
+  credits        Credit[]
 }
 
 model Credit {

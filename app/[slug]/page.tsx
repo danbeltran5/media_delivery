@@ -32,7 +32,7 @@ export default async function ClientWorkspacePage({
   return (
     <CartProvider clientSlug={slug} purchasedIds={purchasedIds}>
       <CreditProvider clientSlug={slug}>
-        <SiteHeader slug={slug} />
+        <SiteHeader slug={slug} showAccessForm={client.showAccessForm} />
         <main className="mx-auto w-full max-w-7xl flex-1 px-8 py-16 sm:px-14">
         <header className="mb-16 flex flex-col items-center text-center">
           <h1 className="font-serif text-[60px] leading-[1.05] tracking-[-0.01em] text-primary">
@@ -60,6 +60,7 @@ export default async function ClientWorkspacePage({
                 thumbnailUrl={streamThumbnailUrl(video.cfStreamUid)}
                 purchased={purchasedIds.includes(video.id)}
                 orientation={client.orientation === "landscape" ? "landscape" : "portrait"}
+                showWatermark={client.watermark}
               />
             ))}
           </div>

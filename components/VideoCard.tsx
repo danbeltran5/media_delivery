@@ -13,6 +13,7 @@ export function VideoCard({
   thumbnailUrl,
   purchased,
   orientation = "portrait",
+  showWatermark = true,
 }: {
   id: string;
   title: string;
@@ -23,6 +24,7 @@ export function VideoCard({
   thumbnailUrl: string;
   purchased: boolean;
   orientation?: "portrait" | "landscape";
+  showWatermark?: boolean;
 }) {
   const landscape = orientation === "landscape";
   const { isInCart, toggle } = useCart();
@@ -129,12 +131,14 @@ export function VideoCard({
             hovering ? "opacity-0" : "opacity-100"
           }`}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/brand/watermark.png"
-            alt=""
-            className="absolute h-1/3 w-auto opacity-55"
-          />
+          {showWatermark && (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              src="/brand/watermark.png"
+              alt=""
+              className="absolute h-1/3 w-auto opacity-55"
+            />
+          )}
           <span className="relative flex h-8 w-8 items-center justify-center rounded-full border border-white/80">
             <svg
               viewBox="0 0 16 16"
@@ -203,14 +207,16 @@ export function VideoCard({
               allowFullScreen
               title={title}
             />
-            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/brand/watermark.png"
-                alt=""
-                className="h-1/3 w-auto opacity-40"
-              />
-            </div>
+            {showWatermark && (
+              <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/brand/watermark.png"
+                  alt=""
+                  className="h-1/3 w-auto opacity-40"
+                />
+              </div>
+            )}
           </div>
         </div>
       )}
