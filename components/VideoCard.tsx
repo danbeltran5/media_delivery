@@ -14,6 +14,7 @@ export function VideoCard({
   purchased,
   orientation = "portrait",
   showWatermark = true,
+  requirePurchase = true,
 }: {
   id: string;
   title: string;
@@ -25,6 +26,7 @@ export function VideoCard({
   purchased: boolean;
   orientation?: "portrait" | "landscape";
   showWatermark?: boolean;
+  requirePurchase?: boolean;
 }) {
   const landscape = orientation === "landscape";
   const { isInCart, toggle } = useCart();
@@ -161,7 +163,7 @@ export function VideoCard({
             </p>
           )}
         </div>
-        {purchased ? (
+        {purchased || !requirePurchase ? (
           <button onClick={handleDownload} className={ghostOlive}>
             Download
           </button>

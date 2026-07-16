@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { toDirectDownloadLink } from "@/lib/dropbox";
-import { purchaseCookieName } from "@/lib/purchase-cookie";
+import { purchaseCookieName, PURCHASE_COOKIE_MAX_AGE } from "@/lib/purchase-cookie";
 
 function downloadPage(fileUrl: string, title: string) {
   return `<!DOCTYPE html>
@@ -51,21 +51,29 @@ export async function GET(
 ) {
   const { videoId } = await params;
 
-  const hasCookie = request.cookies.get(purchaseCookieName(videoId))?.value === "1";
-  if (!hasCookie) {
-    return NextResponse.json({ error: "Not purchased" }, { status: 403 });
-  }
-
-  const purchase = await prisma.purchase.findFirst({
-    where: { videoId, status: "paid" },
+  const video = await prisma.video.findUnique({
+    where: { id: videoId },
+    include: { client: true },
   });
-  if (!purchase) {
-    return NextResponse.json({ error: "Not purchased" }, { status: 403 });
-  }
-
-  const video = await prisma.video.findUnique({ where: { id: videoId } });
   if (!video) {
     return NextResponse.json({ error: "Video not found" }, { status: 404 });
+  }
+
+  const hasCookie = request.cookies.get(purchaseCookieName(videoId))?.value === "1";
+  let purchase = hasCookie
+    ? await prisma.purchase.findFirst({ where: { videoId, status: "paid" } })
+    : null;
+
+  let setCookie = false;
+  if (!purchase) {
+    if (video.client.requirePurchase) {
+      return NextResponse.json({ error: "Not purchased" }, { status: 403 });
+    }
+    // Direct-download client: no cart/Stripe involved, unlock on first click.
+    purchase = await prisma.purchase.create({
+      data: { videoId, status: "paid", amountCents: 0 },
+    });
+    setCookie = true;
   }
 
   if (!purchase.downloadedAt) {
@@ -76,7 +84,19 @@ export async function GET(
   }
 
   const fileUrl = toDirectDownloadLink(video.downloadUrl);
-  return new NextResponse(downloadPage(fileUrl, video.title), {
+  const response = new NextResponse(downloadPage(fileUrl, video.title), {
     headers: { "Content-Type": "text/html; charset=utf-8" },
   });
+
+  if (setCookie) {
+    response.cookies.set(purchaseCookieName(videoId), "1", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: PURCHASE_COOKIE_MAX_AGE,
+    });
+  }
+
+  return response;
 }

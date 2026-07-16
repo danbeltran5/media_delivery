@@ -14,9 +14,14 @@ export async function PATCH(
   }
 
   const { id } = await params;
-  const { name, slug, tagline } = await request.json().catch(() => ({}));
+  const { name, slug, tagline, requirePurchase } = await request.json().catch(() => ({}));
 
-  const data: { name?: string; slug?: string; tagline?: string | null } = {};
+  const data: {
+    name?: string;
+    slug?: string;
+    tagline?: string | null;
+    requirePurchase?: boolean;
+  } = {};
 
   if (name !== undefined) {
     if (typeof name !== "string" || name.trim().length === 0) {
@@ -47,6 +52,13 @@ export async function PATCH(
       return NextResponse.json({ error: "That URL is already taken" }, { status: 400 });
     }
     data.slug = slug;
+  }
+
+  if (requirePurchase !== undefined) {
+    if (typeof requirePurchase !== "boolean") {
+      return NextResponse.json({ error: "Invalid requirePurchase" }, { status: 400 });
+    }
+    data.requirePurchase = requirePurchase;
   }
 
   const client = await prisma.client.update({ where: { id }, data });

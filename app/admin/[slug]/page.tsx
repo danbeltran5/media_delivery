@@ -9,6 +9,7 @@ import { AdminTaglineForm } from "@/components/AdminTaglineForm";
 import { AdminVideoPriceForm } from "@/components/AdminVideoPriceForm";
 import { AdminBulkPriceForm } from "@/components/AdminBulkPriceForm";
 import { AdminReplaceVideoForm } from "@/components/AdminReplaceVideoForm";
+import { AdminRequirePurchaseForm } from "@/components/AdminRequirePurchaseForm";
 
 function formatDate(date: Date) {
   return new Intl.DateTimeFormat("en-US", {
@@ -76,6 +77,16 @@ export default async function AdminClientDetailPage({
           /{client.slug}
         </Link>
       </header>
+
+      <section className="mb-12">
+        <h2 className="mb-4 font-serif text-[22px] text-primary">
+          Delivery type
+        </h2>
+        <AdminRequirePurchaseForm
+          clientId={client.id}
+          requirePurchase={client.requirePurchase}
+        />
+      </section>
 
       <section className="mb-12">
         <h2 className="mb-4 font-serif text-[22px] text-primary">

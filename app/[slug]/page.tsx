@@ -61,6 +61,7 @@ export default async function ClientWorkspacePage({
                 purchased={purchasedIds.includes(video.id)}
                 orientation={client.orientation === "landscape" ? "landscape" : "portrait"}
                 showWatermark={client.watermark}
+                requirePurchase={client.requirePurchase}
               />
             ))}
           </div>
