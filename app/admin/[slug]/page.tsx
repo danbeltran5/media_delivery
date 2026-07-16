@@ -10,6 +10,7 @@ import { AdminVideoPriceForm } from "@/components/AdminVideoPriceForm";
 import { AdminBulkPriceForm } from "@/components/AdminBulkPriceForm";
 import { AdminReplaceVideoForm } from "@/components/AdminReplaceVideoForm";
 import { AdminRequirePurchaseForm } from "@/components/AdminRequirePurchaseForm";
+import { AdminGallerySettingsForm } from "@/components/AdminGallerySettingsForm";
 
 function formatDate(date: Date) {
   return new Intl.DateTimeFormat("en-US", {
@@ -85,6 +86,18 @@ export default async function AdminClientDetailPage({
         <AdminRequirePurchaseForm
           clientId={client.id}
           requirePurchase={client.requirePurchase}
+        />
+      </section>
+
+      <section className="mb-12">
+        <h2 className="mb-4 font-serif text-[22px] text-primary">
+          Gallery settings
+        </h2>
+        <AdminGallerySettingsForm
+          clientId={client.id}
+          orientation={client.orientation}
+          watermark={client.watermark}
+          showAccessForm={client.showAccessForm}
         />
       </section>
 

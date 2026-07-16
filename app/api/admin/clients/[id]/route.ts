@@ -14,13 +14,17 @@ export async function PATCH(
   }
 
   const { id } = await params;
-  const { name, slug, tagline, requirePurchase } = await request.json().catch(() => ({}));
+  const { name, slug, tagline, requirePurchase, orientation, watermark, showAccessForm } =
+    await request.json().catch(() => ({}));
 
   const data: {
     name?: string;
     slug?: string;
     tagline?: string | null;
     requirePurchase?: boolean;
+    orientation?: string;
+    watermark?: boolean;
+    showAccessForm?: boolean;
   } = {};
 
   if (name !== undefined) {
@@ -59,6 +63,27 @@ export async function PATCH(
       return NextResponse.json({ error: "Invalid requirePurchase" }, { status: 400 });
     }
     data.requirePurchase = requirePurchase;
+  }
+
+  if (orientation !== undefined) {
+    if (orientation !== "portrait" && orientation !== "landscape") {
+      return NextResponse.json({ error: "Invalid orientation" }, { status: 400 });
+    }
+    data.orientation = orientation;
+  }
+
+  if (watermark !== undefined) {
+    if (typeof watermark !== "boolean") {
+      return NextResponse.json({ error: "Invalid watermark" }, { status: 400 });
+    }
+    data.watermark = watermark;
+  }
+
+  if (showAccessForm !== undefined) {
+    if (typeof showAccessForm !== "boolean") {
+      return NextResponse.json({ error: "Invalid showAccessForm" }, { status: 400 });
+    }
+    data.showAccessForm = showAccessForm;
   }
 
   const client = await prisma.client.update({ where: { id }, data });
