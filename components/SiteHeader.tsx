@@ -25,7 +25,7 @@ export function SiteHeader({
           <div />
         </div>
       ) : (
-        <div className="mx-auto flex w-full max-w-7xl justify-center px-8 py-2.5 sm:px-14">
+        <div className="mx-auto flex w-full max-w-7xl justify-start px-8 py-2.5 sm:px-14">
           {badge}
         </div>
       )}
