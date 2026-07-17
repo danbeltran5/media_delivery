@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
@@ -10,6 +11,27 @@ import { CreditProvider } from "@/lib/credit-context";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { DEFAULT_TAGLINE } from "@/lib/tagline";
+
+export async function generateMetadata({
+  params,
+}: PageProps<"/[slug]">): Promise<Metadata> {
+  const { slug } = await params;
+  const client = await prisma.client.findUnique({
+    where: { slug },
+    select: { name: true, tagline: true },
+  });
+
+  if (!client) return {};
+
+  const title = `${client.name} by Dan & Tyler Photography`;
+  const description = client.tagline || DEFAULT_TAGLINE;
+
+  return {
+    title,
+    description,
+    openGraph: { title, description },
+  };
+}
 
 export default async function ClientWorkspacePage({
   params,
