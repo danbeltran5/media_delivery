@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { toDirectDownloadLink } from "@/lib/dropbox";
 import { purchaseCookieName, PURCHASE_COOKIE_MAX_AGE } from "@/lib/purchase-cookie";
 
-function downloadPage(fileUrl: string, title: string) {
+function downloadPage(fileUrl: string, title: string, isIOS: boolean) {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,6 +28,7 @@ function downloadPage(fileUrl: string, title: string) {
   .card { max-width: 360px; }
   h1 { font-size: 20px; font-weight: 600; margin: 0 0 12px; }
   p { font-size: 15px; line-height: 1.6; color: #2e2c2a; margin: 0 0 8px; }
+  .tip { margin-top: 16px; padding-top: 16px; border-top: 1px solid #e9e1d5; font-size: 13px; color: #6f6a63; }
   a { color: #656956; }
 </style>
 </head>
@@ -37,6 +38,11 @@ function downloadPage(fileUrl: string, title: string) {
     <p>${title} should begin downloading in a moment.</p>
     <p>You can close this tab once it&rsquo;s done.</p>
     <p><a href="${fileUrl}">Click here if it doesn&rsquo;t start automatically.</a></p>
+    ${
+      isIOS
+        ? `<p class="tip">On iPhone, this saves to the Files app. To add it to Photos instead: open it in Files, tap the Share icon, then choose &ldquo;Save Video.&rdquo;</p>`
+        : ""
+    }
   </div>
   <script>
     window.location.href = ${JSON.stringify(fileUrl)};
@@ -83,8 +89,11 @@ export async function GET(
     });
   }
 
+  const userAgent = request.headers.get("user-agent") ?? "";
+  const isIOS = /iPhone|iPad|iPod/.test(userAgent);
+
   const fileUrl = toDirectDownloadLink(video.downloadUrl);
-  const response = new NextResponse(downloadPage(fileUrl, video.title), {
+  const response = new NextResponse(downloadPage(fileUrl, video.title, isIOS), {
     headers: { "Content-Type": "text/html; charset=utf-8" },
   });
 
